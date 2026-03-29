@@ -92,7 +92,7 @@ const Transaction = () => {
             </Pressable>
           </View>
           <View style={{ flexDirection: 'row', gap: 20, marginTop: 20 }}>
-            {['all', 'credit', 'debit'].map((tab) => (
+            {tabs.map((tab) => (
               <Pressable
                 key={tab}
                 onPress={() => setSelectedTab(tab as 'all' | 'credit' | 'debit')}
