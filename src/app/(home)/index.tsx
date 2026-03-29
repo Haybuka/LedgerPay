@@ -1,10 +1,9 @@
+import Button from "@/components/Button";
 import { AppTextStyle, Typography } from "@/components/Typography";
 import { COLORS } from "@/theme/colors";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import TransferIcon from "../../assets/icons/transfer.svg";
-// import * as SVG from '../../assets/icons';
-
+import * as SVG from '../../assets/icons';
 const source = require('../../assets/images/bannerBg.png')
 export default function Home() {
   const safeInsets = useSafeAreaInsets()
@@ -53,16 +52,15 @@ export default function Home() {
           <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.white}>
             +$ 421.03
           </Typography>
-          <Pressable>
-           <Typography> Send</Typography>
-          </Pressable>
-          <Pressable>
-            <Typography>Receive</Typography>
-          </Pressable>
+          <View style={{flexDirection : 'row', gap: 10, marginTop: 20}}>
+            <Button label="Send" icon={<SVG.TransferIcon />} />
+            <Button label="Receive" icon={<SVG.Search />} />
+          </View>
+
         </View>
 
       </View>
-      <TransferIcon width={24} height={24} />
+      <SVG.TransferIcon width={24} height={24} />
     </View>
   );
 }
@@ -73,6 +71,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
+
   bioContainer: {
     flexDirection: 'row',
     alignItems: 'center',

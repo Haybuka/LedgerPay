@@ -1,21 +1,18 @@
 import Header from '@/components/CustomHeader'
+import BottomSheetUsage from '@/components/SheetModal'
 import TransactionItem from '@/components/transaction/transactionItem'
+import TransactionSheetUi from '@/components/transaction/transactionSheetUi'
 import { Typography } from '@/components/Typography'
 import { COLORS } from '@/theme/colors'
+import { TransactionItemType } from '@/types/transactionTypes'
 import { transactionsData } from '@/utils/appData'
+import BottomSheet from '@gorhom/bottom-sheet'
 import React, { useRef, useState } from 'react'
 import { FlatList, Pressable, TextInput, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as SVG from '../../assets/icons'
 
-type TransactionItemType = {
-  id: string;
-  type: 'debit' | 'credit';
-  title: string;
-  time: string;
-  amount: number;
-  icon: string;
-}
+
 
 const tabs = ['all', 'credit', 'debit']
 const Transaction = () => {
@@ -24,6 +21,9 @@ const Transaction = () => {
   const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
   const [search, setSearch] = useState('');
   const [selectedTab, setSelectedTab] = useState<'all' | 'debit' | 'credit'>('all');
+
+  const sheetRef = useRef<BottomSheet>(null);
+  const [selectedItem, setSelectedItem] = useState<TransactionItemType>({} as TransactionItemType);
   const onSearchIconPress = () => {
     if (inputRef.current) {
       inputRef.current.focus(); // focus the input when search icon is pressed
@@ -31,6 +31,8 @@ const Transaction = () => {
   };
 
   const filteredTransactions = transactions.filter((item) => {
+
+
     const query = search.toLowerCase();
 
     // Check search match
@@ -44,6 +46,11 @@ const Transaction = () => {
 
     return matchesSearch && matchesTab;
   });
+
+  const handleSelectedItem = (item: TransactionItemType) => {
+    setSelectedItem(item);
+    sheetRef.current?.snapToIndex(0);
+  }
   return (
     <View style={{ flex: 1 }}>
       <Header title='Transactions' showIconLeft={true} />
@@ -99,8 +106,8 @@ const Transaction = () => {
                 }}
               >
 
-                <Typography color={selectedTab === tab ? COLORS.white : COLORS.ledgerBlue}>
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                <Typography color={selectedTab === tab ? COLORS.white : COLORS.white}>
+                  {tab?.charAt(0)?.toUpperCase() + tab?.slice(1)}
                 </Typography>
               </Pressable>
             ))}
@@ -112,7 +119,7 @@ const Transaction = () => {
           initialNumToRender={5}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <TransactionItem item={item} />}
+          renderItem={({ item }) => <TransactionItem item={item} handleSelected={handleSelectedItem} />}
           ListEmptyComponent={() => (
             <View style={{ padding: 20, alignItems: 'center', }}>
               <Typography style={{ marginTop: 10, fontSize: 16, color: '#999' }}>
@@ -122,7 +129,10 @@ const Transaction = () => {
           )}
         />
       </View>
-
+      <BottomSheetUsage ref={sheetRef}>
+        <TransactionSheetUi item={selectedItem} />
+      </BottomSheetUsage>
+      {/* <TransactionBottomSheet ref={sheetRef} item={selectedItem} /> */}
     </View>
   )
 }

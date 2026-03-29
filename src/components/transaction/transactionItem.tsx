@@ -1,23 +1,20 @@
 
 import { COLORS } from '@/theme/colors';
+import { TransactionItemType } from '@/types/transactionTypes';
 import { formatCurrency } from '@/utils/currencyFormatter';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import * as SVG from '../../assets/icons';
 import { AppTextStyle, Typography } from '../Typography';
 
+
 type Props = {
-    item: {
-        id: string;
-        type: 'debit' | 'credit';
-        title: string;
-        time: string;
-        amount: number;
-        icon: string;
-    };
+    item: TransactionItemType;
+    handleSelected : (item : TransactionItemType) => void
 };
 
-const MfbTransactionItem: React.FC<Props> = ({ item }) => {
+const TransactionItem: React.FC<Props> = ({ item, handleSelected }) => {
+
     const isDebit = item.type === 'debit';
 
     const iconMap = {
@@ -25,42 +22,49 @@ const MfbTransactionItem: React.FC<Props> = ({ item }) => {
         credit: <SVG.CheckStroke width={10} height={10} />,
     };
 
+    const onButtonPress = () => {
+        handleSelected(item);
+    }
     return (
-        <TouchableOpacity activeOpacity={0.4} style={styles.container}>
-            <View style={styles.lhs}>
-                <View
-                    style={styles.avatar}
-                >
+        <>
+            <TouchableOpacity activeOpacity={0.4} style={styles.container} onPress={onButtonPress}>
+                <View style={styles.lhs}>
                     <View
-                        style={[styles.icon, { backgroundColor: isDebit ? COLORS.oxblood : COLORS.green500 }]}
+                        style={styles.avatar}
                     >
-                        {iconMap[item.type]}
+                        <View
+                            style={[styles.icon, { backgroundColor: isDebit ? COLORS.oxblood : COLORS.green500 }]}
+                        >
+                            {iconMap[item.type]}
+                        </View>
+                    </View>
+
+                    <View>
+                        <Typography textstyle={AppTextStyle.bodyMediumBold} >
+                            {item.title}
+                        </Typography>
+                        <Typography textstyle={AppTextStyle.bodySmall} color={COLORS.grey50}>
+                            {item.time}
+                        </Typography>
                     </View>
                 </View>
 
-                <View>
-                    <Typography textstyle={AppTextStyle.bodyMediumBold} >
-                        {item.title}
-                    </Typography>
-                    <Typography textstyle={AppTextStyle.bodySmall} color={COLORS.grey50}>
-                        {item.time}
+                <View >
+                    <Typography
+                        textstyle={AppTextStyle.bodyMedium}
+                        color={isDebit ? COLORS.oxblood : COLORS.green500}
+                    >
+
+                        {formatCurrency(item.amount)}
                     </Typography>
                 </View>
-            </View>
 
-            <View >
-                <Typography
-                    textstyle={AppTextStyle.bodyMedium}
-                    color={isDebit ? COLORS.oxblood : COLORS.green500}
-                >
+            </TouchableOpacity>
 
-                    {formatCurrency(item.amount)}
-                </Typography>
-            </View>
-        </TouchableOpacity>
+        </>
     );
 };
-export default MfbTransactionItem
+export default TransactionItem
 
 const styles = StyleSheet.create({
     container: {
