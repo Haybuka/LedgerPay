@@ -3,16 +3,20 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { AppTextStyle, Typography } from '../Typography'
 
-type Prop
-const Greetings = () => {
+type Prop = {
+
+}
+const Greetings = ({ }: Prop) => {
     return (
         <View style={styles.bioContainer}>
             <View style={styles.avatar}>
             </View>
-            <Typography>
+            <View>
                 <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLarge}>Hi, </Typography>
-                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLargeBold}>Chukwu</Typography>
-            </Typography>
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading8}>Chukwu</Typography>
+
+            </View>
+
         </View>
     )
 }

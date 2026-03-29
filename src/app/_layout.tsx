@@ -34,12 +34,21 @@ import 'react-native-reanimated';
 
 import { COLORS } from '@/theme/colors';
 import { Ionicons } from "@expo/vector-icons";
+import { useFonts } from 'expo-font';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { useWindowDimensions, View } from "react-native";
 
 export default function TabLayout() {
     const { width: screenWidth, height } = useWindowDimensions();
+    const [loaded] = useFonts({
+        nunito: require('../assets/fonts/Nunito-Regular.ttf'),
+        'nunito-Bold': require('../assets/fonts/Nunito-Bold.ttf'),
+        'nunito-Semibold': require('../assets/fonts/Nunito-SemiBold.ttf'),
+        'nunito-light': require('../assets/fonts/Nunito-Light.ttf'),
+    });
+
+
 
     // Width of the tab bar itself
     const tabBarWidth = 150; // adjust based on number of tabs + spacing
@@ -47,7 +56,7 @@ export default function TabLayout() {
     const tabWidth = tabBarWidth / numberOfTabs;
     const iconSize = 28;
     return (
-        <GestureHandlerRootView style={{ flex: 1 , backgroundColor : COLORS.white}}>
+        <GestureHandlerRootView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <ThemeProvider value={DefaultTheme}>
                 <Tabs
 

@@ -39,7 +39,7 @@ type Props = TextProps & {
 const styles: Record<AppTextStyle, StyleProp<TextStyle>> = {
     [AppTextStyle.heading1]: { fontWeight: '700', fontSize: 72 },
     [AppTextStyle.heading2]: { fontWeight: '700', fontSize: 56 },
-    [AppTextStyle.heading3]: { fontWeight: '700', fontSize: 40 },
+    [AppTextStyle.heading3]: { fontWeight: '700', fontSize: 40,  },
     [AppTextStyle.heading4]: { fontWeight: '700', fontSize: 32 },
     [AppTextStyle.heading5]: { fontWeight: '700', fontSize: 28 },
     [AppTextStyle.heading6]: { fontWeight: '700', fontSize: 24 },
@@ -67,6 +67,6 @@ export const Typography = ({
     ...props
 }: Props) => {
     return (
-        <Text style={[styles[textstyle], { color, textAlign }, style]} {...props} />
+        <Text style={[styles[textstyle], { color, textAlign,}, style]} {...props} />
     );
 };

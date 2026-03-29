@@ -42,7 +42,7 @@ const BalanceCard = ({account,balance}: Props) => {
                         }}>
                             <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.white}> $ </Typography>
                         </View>
-                        <Typography textstyle={AppTextStyle.heading3} color={COLORS.ledgerBlue}>{formatCurrency(balance)}</Typography>
+                        <Typography style={{fontFamily : 'nunito-Bold'}} textstyle={AppTextStyle.heading3} color={COLORS.ledgerBlue}>{formatCurrency(balance)}</Typography>
                     </>
                 ) : (
                     <>
