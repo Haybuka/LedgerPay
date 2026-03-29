@@ -4,18 +4,29 @@ import Screen from '@/components/Screen'
 import SettingsMenuItem from '@/components/Settings/SettingsMenuItem'
 import SwitchOption from '@/components/Switch'
 import { AppTextStyle, Typography } from '@/components/Typography'
+import { AppContext } from '@/providers/AppContext'
 import { COLORS } from '@/theme/colors'
 import { Ionicons } from '@expo/vector-icons'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const Settings = () => {
-  const safeInsets = useSafeAreaInsets()
-  const [biometricLogin, setBiometricLogin] = useState(false);
-  const [hideBalance, setHideBalance] = useState(false);
+  // const [biometricLogin, setBiometricLogin] = useState(false);
+  // const [hideBalance, setHideBalance] = useState(false);
   const [pushNotification, setPushNotification] = useState(false);
 
+const context = useContext(AppContext);
+
+  // const onToggleBiometricLogin = (value: boolean) => {
+  //   setBiometricLogin(value);
+  //   // You can also perform additional actions here, such as saving the setting to AsyncStorage or making an API call
+  //   setStorageItem('@biometricLogin', `${value}`);
+  // }
+
+  // const onToggleHideBalance = (value: boolean) => {
+  //   setHideBalance(value);
+  //   setStorageItem('@hideBalance', `${value}`);
+  // }
 
   return (
     <Screen
@@ -26,7 +37,7 @@ const Settings = () => {
       <View style={style.avatar}>
         <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading3} >{`PC`}</Typography>
       </View>
-      <View style={{marginVertical:14}}>
+      <View style={{ marginVertical: 14 }}>
         <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLargeBold} textAlign='center'>Chukwu Paschal</Typography>
         <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center' style={{ marginVertical: 4 }}>Chukwu.Paschal@interswitch.com</Typography>
         <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center'> {`081 664 49354`}</Typography>
@@ -35,14 +46,14 @@ const Settings = () => {
       <View>
         <SwitchOption
           label="Hide Balance"
-          value={hideBalance}
-          onToggle={setHideBalance}
-          icon={<Ionicons name={hideBalance ? 'eye-off' : 'eye'} size={24} color={COLORS.ledgerBlue} />}
+          value={context?.hideBalance}
+          onToggle={context?.setHideBalance}
+          icon={<Ionicons name={context?.hideBalance ? 'eye-off' : 'eye'} size={24} color={COLORS.ledgerBlue} />}
         />
         <SwitchOption
           label="Biometric Login"
-          value={biometricLogin}
-          onToggle={setBiometricLogin}
+          value={context?.biometricEnabled}
+          onToggle={context?.setBiometricEnabled}
           icon={<Ionicons name='finger-print-outline' size={24} color={COLORS.ledgerBlue} />}
         />
         <SwitchOption
@@ -55,8 +66,8 @@ const Settings = () => {
         <SettingsMenuItem icon={<Ionicons name='book-outline' size={24} color={COLORS.ledgerBlue} />} title="Privacy Policy" />
         <SettingsMenuItem icon={<Ionicons name='list-outline' size={24} color={COLORS.ledgerBlue} />} title="Terms of Service" />
       </View>
-    
-      <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical : 14 }}>
+
+      <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 14 }}>
         <Button
           label='Log out'
           bgColor={COLORS.oxblood}
