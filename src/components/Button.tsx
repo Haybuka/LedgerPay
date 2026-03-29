@@ -6,12 +6,13 @@ import { Typography } from './Typography';
 
 type Props = {
   label : string;
-  icon? : React.ReactNode
+  icon? : React.ReactNode;
+  bgColor? : string;
 }
-const Button = ({ label, icon }: Props) => {
+const Button = ({ label, icon , bgColor}: Props) => {
   return (
     <Pressable>
-      <View style={styles.btnContainer}>
+      <View style={[styles.btnContainer, {backgroundColor : bgColor ? bgColor : COLORS.ledgerBlue}]}>
         {icon}
         <Typography color={COLORS.white}>{label} </Typography>
       </View>
@@ -24,7 +25,7 @@ export default Button;
 const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: 'row',
-    backgroundColor: 'red',
+    backgroundColor: COLORS.ledgerBlue,
     gap: 10,
     paddingHorizontal: 12,
     paddingVertical: 8,

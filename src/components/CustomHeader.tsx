@@ -1,15 +1,15 @@
+import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
-    StyleSheet,
-    Text,
-    TextStyle,
-    TouchableOpacity,
-    View,
-    ViewStyle,
+  StyleSheet,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
 } from 'react-native';
 
-import * as SVG from '../assets/icons';
 
 type Props = {
   title?: string;
@@ -42,7 +42,10 @@ export default function Header({
       {showIconLeft && (
         <View style={styles.left}>
           <TouchableOpacity onPress={handleBack} activeOpacity={0.7}>
-            <SVG.TransferIcon />
+            <Ionicons
+              name='arrow-back'
+              size={25}
+            />
           </TouchableOpacity>
         </View>
       )}

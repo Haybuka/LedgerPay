@@ -16,28 +16,28 @@ const TransactionSheetUi = ({ item }: Props) => {
             <Text
                 style={[
                     styles.amount,
-                    { color: item.type === 'debit' ? '#E53935' : '#2E7D32' },
+                    { color: item?.type === 'debit' ? '#E53935' : '#2E7D32' },
                 ]}
             >
-                {item.type === 'debit' ? '-' : '+'}₦
-                {item.amount.toLocaleString()}
+                {item?.type === 'debit' ? '-' : '+'}₦
+                {item?.amount?.toLocaleString()}
             </Text>
 
             <View style={styles.divider} />
 
             <View style={styles.row}>
                 <Text style={styles.label}>Transaction Type</Text>
-                <Text style={styles.value}>{item.type.toUpperCase()}</Text>
+                <Text style={styles.value}>{item?.type?.toUpperCase()}</Text>
             </View>
 
             <View style={styles.row}>
                 <Text style={styles.label}>Date & Time</Text>
-                <Text style={styles.value}>{item.time}</Text>
+                <Text style={styles.value}>{item?.time}</Text>
             </View>
 
             <View style={styles.row}>
                 <Text style={styles.label}>Reference ID</Text>
-                <Text style={styles.value}>{item.id}</Text>
+                <Text style={styles.value}>{item?.id}</Text>
             </View>
 
         </View>

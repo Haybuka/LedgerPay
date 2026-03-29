@@ -10,7 +10,7 @@ import { AppTextStyle, Typography } from '../Typography';
 
 type Props = {
     item: TransactionItemType;
-    handleSelected : (item : TransactionItemType) => void
+    handleSelected: (item: TransactionItemType) => void
 };
 
 const TransactionItem: React.FC<Props> = ({ item, handleSelected }) => {
@@ -40,7 +40,7 @@ const TransactionItem: React.FC<Props> = ({ item, handleSelected }) => {
                     </View>
 
                     <View>
-                        <Typography textstyle={AppTextStyle.bodyMediumBold} >
+                        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMediumBold} >
                             {item.title}
                         </Typography>
                         <Typography textstyle={AppTextStyle.bodySmall} color={COLORS.grey50}>

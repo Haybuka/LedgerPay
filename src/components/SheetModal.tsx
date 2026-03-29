@@ -5,7 +5,7 @@ import { AppTextStyle, Typography } from './Typography';
 
 
 
-interface Props {
+type Props = {
     children: React.ReactNode;
 }
 
