@@ -54,7 +54,7 @@ const Transaction = () => {
   }
   return (
     <Screen>
-      <Header title='Transactions' showIconLeft={false} />
+      <Header title='Transactions' showIconLeft={true} />
 
 
       <View style={{ paddingVertical: 10, }}>

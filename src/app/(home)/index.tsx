@@ -17,7 +17,7 @@ export default function Home() {
 
     <Screen>
 
-      <Greetings />
+      <Greetings firstName={user.firstName} lastName={user.lastName} />
       <View style={styles.banner}>
         <BalanceCard account={user.accountNumber} balance={user.balance} />
         <CtaSection />

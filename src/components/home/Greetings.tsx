@@ -4,16 +4,21 @@ import { StyleSheet, View } from 'react-native'
 import { AppTextStyle, Typography } from '../Typography'
 
 type Prop = {
-
+    firstName: string;
+    lastName: string
 }
-const Greetings = ({ }: Prop) => {
+const Greetings = ({ firstName, lastName }: Prop) => {
     return (
         <View style={styles.bioContainer}>
             <View style={styles.avatar}>
+                <Typography
+                    color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLarge}
+                > {firstName.charAt(0).toUpperCase()}
+                    {lastName.charAt(0).toUpperCase()}</Typography>
             </View>
             <View>
-                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLarge}>Hi, </Typography>
-                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading8}>Chukwu</Typography>
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium}>Good evening, </Typography>
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading8}>{firstName} {lastName}</Typography>
 
             </View>
 
@@ -36,6 +41,8 @@ const styles = StyleSheet.create({
         height: 40,
         width: 40,
         backgroundColor: COLORS.grey50,
-        borderRadius: 20
+        borderRadius: 20,
+        justifyContent : 'center',
+        alignItems : 'center'   
     },
 })

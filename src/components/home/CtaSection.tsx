@@ -16,7 +16,7 @@ const CtaSection = () => {
 
 
     return (
-        <View style={{ flexDirection: 'row', gap: 10, marginVertical: 20 }}>
+        <View style={{ flexDirection: 'row', gap: 16, marginVertical: 20 }}>
             <CtaButton
                 label="Send"
 onPress={handleCtaRoute}
@@ -24,6 +24,12 @@ onPress={handleCtaRoute}
             />
             <CtaButton
                 label="Receive"
+                onPress={handleCtaRoute}
+
+                icon={<Ionicons size={24} color={COLORS.white} name='swap-horizontal-outline' />}
+            />
+            <CtaButton
+                label="Swap"
                 onPress={handleCtaRoute}
 
                 icon={<Ionicons size={24} color={COLORS.white} name='swap-horizontal-outline' />}
