@@ -1,8 +1,11 @@
 import { AppTextStyle, Typography } from "@/components/Typography";
 import { COLORS } from "@/theme/colors";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import TransferIcon from "../../assets/icons/transfer.svg";
+// import * as SVG from '../../assets/icons';
 
+const source = require('../../assets/images/bannerBg.png')
 export default function Home() {
   const safeInsets = useSafeAreaInsets()
 
@@ -13,7 +16,7 @@ export default function Home() {
         flex: 1,
         paddingTop: safeInsets.top,
         paddingBottom: safeInsets.bottom,
-        paddingHorizontal: 16,
+        paddingHorizontal: 10,
 
       }}
     >
@@ -24,23 +27,42 @@ export default function Home() {
         <Typography color={COLORS.ledgerBlue}>Hi, Chukwu</Typography>
       </View>
       <View style={styles.banner}>
+
         <View style={styles.innerBanner}>
-          <View style={{flexDirection : 'row', gap : 4, alignItems : 'center', justifyContent:'space-between', width : '100%'}}>
-            <Typography color={COLORS.white} style={{opacity : 0}}>USD</Typography>
-            <Typography color={COLORS.white} textstyle={AppTextStyle.bodyMedium} >USD</Typography>
+          <View style={{ flexDirection: 'row', gap: 4, alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+            <Typography color={COLORS.white} style={{ opacity: 0 }}>USD</Typography>
+            <Typography color={COLORS.white} textstyle={AppTextStyle.bodyMedium} >Wallet Balance</Typography>
             <Typography color={COLORS.white}>USD</Typography>
           </View>
-          <Typography textstyle={AppTextStyle.bodyTiny} color={COLORS.white}>
+          {/* <Typography textstyle={AppTextStyle.bodyTiny} color={COLORS.white}>
             1 USD = EUR 0.95 = GBR 0.79
-          </Typography>
-          <Typography  textstyle={AppTextStyle.heading3} color={COLORS.white}>
-            $ 26,887.09
-          </Typography>
+          </Typography> */}
+          <View style={{ flexDirection: 'row', gap: 10, alignItems: 'center', }}>
+
+            <View style={{
+              backgroundColor: COLORS.white,
+              paddingHorizontal: 4,
+              paddingVertical: 4,
+              borderRadius: 4
+            }}>
+              <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.ledgerBlue}> $ </Typography>
+            </View>
+            <Typography textstyle={AppTextStyle.heading3} color={COLORS.white}>100,000</Typography>
+          </View>
+
           <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.white}>
             +$ 421.03
           </Typography>
+          <Pressable>
+           <Typography> Send</Typography>
+          </Pressable>
+          <Pressable>
+            <Typography>Receive</Typography>
+          </Pressable>
         </View>
+
       </View>
+      <TransferIcon width={24} height={24} />
     </View>
   );
 }
@@ -55,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginVertical : 10,
+    marginTop: 40,
   },
   avatar: {
     height: 40,
@@ -64,7 +86,8 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   banner: {
-    height: 350,
+    // height: 350,
+    // height: 22,
     marginVertical: 20,
     backgroundColor: COLORS.white50,
     borderRadius: 40,
@@ -88,11 +111,11 @@ const styles = StyleSheet.create({
     height: 220,
     backgroundColor: COLORS.ledgerBlue,
     borderRadius: 40,
-    margin: 6,
+    // margin: 6,
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    paddingHorizontal : 25
+    paddingHorizontal: 25
   }
 });
 
