@@ -5,12 +5,12 @@ import TransactionItem from '@/components/transaction/TransactionItem'
 import TransactionSearch from '@/components/transaction/TransactionSearch'
 import TransactionSheetUi from '@/components/transaction/TransactionSheetUi'
 import { Typography } from '@/components/Typography'
+import { NetworkContext } from '@/providers/NetworkContext'
 import { COLORS } from '@/theme/colors'
 import { TransactionItemType } from '@/types/transactionTypes'
 import { transactionsData } from '@/utils/appData'
 import BottomSheet from '@gorhom/bottom-sheet'
-import NetInfo from '@react-native-community/netinfo'
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { ActivityIndicator, Alert, FlatList, Pressable, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -26,26 +26,17 @@ const Transaction = () => {
     const sheetRef = useRef<BottomSheet>(null);
     const [selectedItem, setSelectedItem] = useState<TransactionItemType>({} as TransactionItemType);
 
+    const { isOnline, isReachable, networkConnectionType } = useContext(NetworkContext)
 
     const checkNetAvailable = async () => {
         setIsLoading(true);
         try {
-
-            const internetConnection = await NetInfo.fetch();
-            const isConnected = internetConnection.isConnected;
-            const isOnline = typeof isConnected === 'boolean' ? isConnected : true;
             Alert.alert(
-                'Network Status',
+                `${networkConnectionType} Network Status`,
                 isOnline ? 'You are online' : 'No internet connection',
                 [{ text: 'OK' }],
                 { cancelable: true }
             );
-            // if (!isOnline) {
-            //     return Promise.reject(new Error('Please connect to the internet'));
-            // }
-
-
-            return true; // Placeholder: Assume network is always available
         } catch (error) {
 
         } finally {

@@ -55,7 +55,7 @@ const TransactionItem: React.FC<Props> = ({ item, handleSelected }) => {
                         color={isDebit ? COLORS.oxblood : COLORS.green500}
                     >
 
-                        {formatCurrency(item.amount)}
+                        {` $ ${formatCurrency(item.amount)}`}
                     </Typography>
                 </View>
 
