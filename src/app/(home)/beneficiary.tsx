@@ -1,17 +1,18 @@
+import BeneficiaryContactList from '@/components/Beneficiary'
 import Header from '@/components/CustomHeader'
 import Screen from '@/components/Screen'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 
-const SendMoney = () => {
+const Beneficiary = () => {
   return (
     <Screen >
-      <Header title='Send Money' showIconLeft={true} />
-
+      <Header title='Select Beneficiary' showIconLeft={true} />
+      <BeneficiaryContactList />
     </Screen>
   )
 }
 
-export default SendMoney
+export default Beneficiary
 
 const styles = StyleSheet.create({})

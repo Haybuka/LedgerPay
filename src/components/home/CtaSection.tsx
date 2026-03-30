@@ -11,7 +11,7 @@ const CtaSection = () => {
     const router = useRouter();
     const handleCtaRoute = () => {
 
-        router.push('/sendMoney');
+        router.push('/beneficiary');
     }
 
 

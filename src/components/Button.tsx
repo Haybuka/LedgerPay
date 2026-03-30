@@ -20,7 +20,7 @@ const Button = ({ label, icon, bgColor, style, ...rest }: Props) => {
         ]}
       >
         {icon}
-        <Typography color={COLORS.white}>{label}</Typography>
+        <Typography color={COLORS.white} >{label}</Typography>
       </View>
     </Pressable>
   );

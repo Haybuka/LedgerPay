@@ -5,11 +5,13 @@ import { CONTACTS } from '@/utils/appData';
 import BottomSheet from '@gorhom/bottom-sheet';
 import React, { useMemo, useRef, useState } from 'react';
 import { Pressable, SectionList, StyleSheet, TextInput, View } from 'react-native';
-import * as SVG from '../../../assets/icons';
+import * as SVG from '../../assets/icons';
 import BeneficiaryContactitem from './ContactItem';
 import DeleteMfbBeneficiary from './DeleteBeneficiary';
+// import BeneficiaryContactitem from '../ContactItem';
+// import DeleteMfbBeneficiary from '../DeleteBeneficiary';
 
-export type Contact = {
+export type ContactType = {
   id: string;
   name: string;
   bank: string;
@@ -18,13 +20,13 @@ export type Contact = {
 
 type Section = {
   title: string;
-  data: Contact[];
+  data: ContactType[];
 };
 
 // ✅ Group Contacts into Sections
-const groupContacts = (contacts: Contact[]): Section[] => {
+const groupContacts = (contacts: ContactType[]): Section[] => {
 
-  const grouped: Record<string, Contact[]> = {};
+  const grouped: Record<string, ContactType[]> = {};
 
   contacts.forEach(contact => {
     const letter = contact.name.charAt(0).toUpperCase();
@@ -46,8 +48,8 @@ const groupContacts = (contacts: Contact[]): Section[] => {
 
 const BeneficiaryContactList = () => {
   const [search, setSearch] = useState('');
-  const [selectedBeneficiary, setSelectedBeneficiary] = useState<Contact>(
-    {} as Contact,
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState<ContactType>(
+    {} as ContactType,
   );
   const inputRef = useRef<TextInput>(null);
   const sheetRef = useRef<BottomSheet>(null);
@@ -79,7 +81,7 @@ const BeneficiaryContactList = () => {
     }
   };
 
-  const handleBeneficiaryDelete = (beneficiary: Contact) => {
+  const handleBeneficiaryDelete = (beneficiary: ContactType) => {
     setSelectedBeneficiary(beneficiary);
     sheetRef.current?.snapToIndex(0);
   };
