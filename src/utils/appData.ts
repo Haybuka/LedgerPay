@@ -136,3 +136,5 @@ export const CONTACTS = [
   { id: '29', name: 'Henry Okoro', bank: 'First Bank', accountNumber: '5647389203' },
   { id: '30', name: 'Amina Garba', bank: 'Fidelity Bank', accountNumber: '8475619205' },
 ];
+
+

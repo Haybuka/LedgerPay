@@ -5,10 +5,8 @@ export const setStorageItem = (key: string, item: any) => {
 };
 
 export const getStorageItem = async (key: string) => {
-  const value = await AsyncStorage.getItem(key);
-  return value ? JSON.parse(value) : false;
+  return await AsyncStorage.getItem(key); // return raw string
 };
-
 export const removeStorageItem = (key: string) => {
   return AsyncStorage.removeItem(key);
 };

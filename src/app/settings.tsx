@@ -8,70 +8,153 @@ import { AppContext } from '@/providers/AppContext'
 import { COLORS } from '@/theme/colors'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useContext, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Alert, SectionList, StyleSheet, View } from 'react-native'
 
 const Settings = () => {
-  // const [biometricLogin, setBiometricLogin] = useState(false);
-  // const [hideBalance, setHideBalance] = useState(false);
   const [pushNotification, setPushNotification] = useState(false);
+  const context = useContext(AppContext);
 
-const context = useContext(AppContext);
-
-  // const onToggleBiometricLogin = (value: boolean) => {
-  //   setBiometricLogin(value);
-  //   // You can also perform additional actions here, such as saving the setting to AsyncStorage or making an API call
-  //   setStorageItem('@biometricLogin', `${value}`);
-  // }
-
-  // const onToggleHideBalance = (value: boolean) => {
-  //   setHideBalance(value);
-  //   setStorageItem('@hideBalance', `${value}`);
-  // }
+const handleLogout = () => {
+  Alert.alert(
+    'Log out',
+    'Are you sure you want to log out?',
+    [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Log out',
+        style: 'destructive',
+        onPress: () => {
+          
+          console.log('User logged out');
+        },
+      },
+    ],
+    { cancelable: true }
+  );
+};
+  const sections = [
+    {
+      title: 'Preferences',
+      data: [
+        {
+          type: 'switch',
+          label: 'Hide Balance',
+          value: context?.hideBalance,
+          onToggle: context?.setHideBalance,
+          icon: <Ionicons name={context?.hideBalance ? 'eye-off' : 'eye'} size={24} color={COLORS.ledgerBlue} />
+        },
+        {
+          type: 'switch',
+          label: 'Biometric Login',
+          value: context?.biometricEnabled,
+          onToggle: context?.setBiometricEnabled,
+          icon: <Ionicons name='finger-print-outline' size={24} color={COLORS.ledgerBlue} />
+        },
+        {
+          type: 'switch',
+          label: 'Push Notification',
+          value: pushNotification,
+          onToggle: setPushNotification,
+          icon: <Ionicons name={pushNotification ? 'notifications' : 'notifications-off'} size={24} color={COLORS.ledgerBlue} />
+        }
+      ]
+    },
+    {
+      title: 'Security & Legal',
+      data: [
+        {
+          type: 'menu',
+          label: 'Change Pin',
+          value: false,
+          onToggle: () => {},
+          icon: <Ionicons name='key-outline' size={24} color={COLORS.ledgerBlue} />
+        },
+        {
+          type: 'menu',
+          label: 'Privacy Policy',
+          value: false,
+          onToggle: () => {},
+          icon: <Ionicons name='book-outline' size={24} color={COLORS.ledgerBlue} />
+        },
+        {
+          type: 'menu',
+          label: 'Terms of Service',
+          value: false,
+          onToggle: () => {},
+          icon: <Ionicons name='list-outline' size={24} color={COLORS.ledgerBlue} />
+        }
+      ]
+    }
+  ];
 
   return (
-    <Screen
-
-    >
+    <Screen>
       <Header title='Settings' showIconLeft={true} />
 
+    
       <View style={style.avatar}>
-        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading3} >{`PC`}</Typography>
+        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading3}>PC</Typography>
       </View>
+
       <View style={{ marginVertical: 14 }}>
-        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLargeBold} textAlign='center'>Chukwu Paschal</Typography>
-        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center' style={{ marginVertical: 4 }}>Chukwu.Paschal@interswitch.com</Typography>
-        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center'> {`081 664 49354`}</Typography>
-
-      </View>
-      <View>
-        <SwitchOption
-          label="Hide Balance"
-          value={context?.hideBalance}
-          onToggle={context?.setHideBalance}
-          icon={<Ionicons name={context?.hideBalance ? 'eye-off' : 'eye'} size={24} color={COLORS.ledgerBlue} />}
-        />
-        <SwitchOption
-          label="Biometric Login"
-          value={context?.biometricEnabled}
-          onToggle={context?.setBiometricEnabled}
-          icon={<Ionicons name='finger-print-outline' size={24} color={COLORS.ledgerBlue} />}
-        />
-        <SwitchOption
-          label="Push Notification"
-          value={pushNotification}
-          onToggle={setPushNotification}
-          icon={<Ionicons name={pushNotification ? 'notifications' : 'notifications-off'} size={24} color={COLORS.ledgerBlue} />}
-        />
-        <SettingsMenuItem icon={<Ionicons name='key-outline' size={24} color={COLORS.ledgerBlue} />} title="Change Pin" />
-        <SettingsMenuItem icon={<Ionicons name='book-outline' size={24} color={COLORS.ledgerBlue} />} title="Privacy Policy" />
-        <SettingsMenuItem icon={<Ionicons name='list-outline' size={24} color={COLORS.ledgerBlue} />} title="Terms of Service" />
+        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLargeBold} textAlign='center'>
+          Chukwu Paschal
+        </Typography>
+        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center' style={{ marginVertical: 4 }}>
+          Chukwu.Paschal@interswitch.com
+        </Typography>
+        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center'>
+          081 664 49354
+        </Typography>
       </View>
 
-      <View style={{ justifyContent: 'center', alignItems: 'center', marginVertical: 14 }}>
+    
+      <SectionList
+        sections={sections}
+        keyExtractor={(item, index) => item.label ? item.label : item.label + index}
+        renderSectionHeader={({ section: { title } }) => (
+          <Typography
+            textstyle={AppTextStyle.bodyMedium}
+            color={COLORS.ledgerBlue}
+            style={style.sectionHeader}
+          >
+            {title}
+          </Typography>
+        )}
+        renderItem={({ item }) => {
+          if (item.type === 'switch') {
+            return (
+              <SwitchOption
+                label={item.label}
+                value={item.value}
+                onToggle={item.onToggle}
+                icon={item.icon}
+              />
+            );
+          }
+
+          return (
+            <SettingsMenuItem
+              title={item.label}
+              icon={item.icon}
+            />
+          );
+        }}
+        contentContainerStyle={{ paddingBottom: 20 }}
+        showsVerticalScrollIndicator={false}
+      />
+
+    
+      <View style={style.logout}>
         <Button
           label='Log out'
           bgColor={COLORS.oxblood}
-          icon={<Ionicons name='log-out' size={24} color={COLORS.white} />} />
+          onPress={handleLogout}
+          icon={<Ionicons name='log-out' size={24} color={COLORS.white} />}
+        />
       </View>
     </Screen>
   )
@@ -90,5 +173,14 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-
-})
+  sectionHeader: {
+    marginTop: 20,
+    marginBottom: 8,
+    paddingHorizontal: 4
+  },
+  logout: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 14
+  }
+});

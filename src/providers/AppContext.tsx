@@ -20,11 +20,13 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [biometricEnabled, setBiometricEnabledState] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  console.log(hideBalance, 'state loaded')
   // 🔹 Load from storage on app start
   useEffect(() => {
     const loadSettings = async () => {
       try {
         const value = await getStorageItem(BALANCE_STORAGE_KEY);
+        console.log(value,'value here')
         if (value !== null) {
           setHideBalanceState(value === 'true');
         }
@@ -32,6 +34,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         if (biometricValue !== null) {
           setBiometricEnabledState(biometricValue === 'true');
         }
+        console.log(value,'hide balance')
       } catch (error) {
         console.log('Error loading hideBalance:', error);
       } finally {
@@ -46,8 +49,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const setHideBalance = async (value: boolean) => {
     try {
       setHideBalanceState(value);
-    //   await AsyncStorage.setItem(BALANCE_STORAGE_KEY, String(value));
-       await setStorageItem(BALANCE_STORAGE_KEY,  `${value}`);
+       await setStorageItem(BALANCE_STORAGE_KEY,  JSON.stringify(value));
     } catch (error) {
       console.log('Error saving hideBalance:', error);
     }
@@ -56,8 +58,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const setBiometricEnabled = async (value: boolean) => {
     try {
       setBiometricEnabledState(value);
-    //   await AsyncStorage.setItem(BIOMETRIC_STORAGE_KEY, String(value));
-       await setStorageItem(BIOMETRIC_STORAGE_KEY,  String(value));
+       await setStorageItem(BIOMETRIC_STORAGE_KEY, JSON.stringify(value));
     } catch (error) {
       console.log('Error saving biometricEnabled:', error);
     }

@@ -10,3 +10,4 @@ export const userProfile = {
     balance: 100000,
     
 }
+

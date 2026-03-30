@@ -1,7 +1,8 @@
-import BalanceCard from "@/components/home/BalanceCard";
-import CtaSection from "@/components/home/CtaSection";
-import Greetings from "@/components/home/Greetings";
-import RecentTransaction from "@/components/home/RecentTransaction";
+
+import BalanceCard from "@/components/Home/BalanceCard";
+import CtaSection from "@/components/Home/CtaSection";
+import Greetings from "@/components/Home/Greetings";
+import RecentTransaction from "@/components/Home/RecentTransaction";
 import Screen from "@/components/Screen";
 import { UserProfileType } from "@/types/userType";
 import { userProfile } from "@/utils/constants";

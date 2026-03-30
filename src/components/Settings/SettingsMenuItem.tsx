@@ -1,7 +1,7 @@
 import { COLORS } from '@/theme/colors'
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { AppTextStyle, Typography } from '../Typography'
 
 type Prop = {
@@ -10,13 +10,13 @@ type Prop = {
 }
 const SettingsMenuItem = ({ icon, title }: Prop) => {
     return (
-        <Pressable style={styles.menu}>
+        <TouchableOpacity activeOpacity={0.4} style={styles.menu}>
             <View style={{ flexDirection: 'row', gap: 8, alignItems: 'center', flex: 1 }}>
                 {icon}
                 <Typography textstyle={AppTextStyle.bodyLarge}>{title}</Typography>
             </View>
             <Ionicons name='chevron-forward' size={24} color={COLORS.ledgerBlue} />
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 

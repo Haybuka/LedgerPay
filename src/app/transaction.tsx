@@ -1,35 +1,30 @@
 import Header from '@/components/CustomHeader'
 import Screen from '@/components/Screen'
 import BottomSheetUsage from '@/components/SheetModal'
-import TransactionItem from '@/components/transaction/transactionItem'
-import TransactionSheetUi from '@/components/transaction/transactionSheetUi'
+import TransactionItem from '@/components/transaction/TransactionItem'
+import TransactionSearch from '@/components/transaction/TransactionSearch'
+import TransactionSheetUi from '@/components/transaction/TransactionSheetUi'
 import { Typography } from '@/components/Typography'
 import { COLORS } from '@/theme/colors'
 import { TransactionItemType } from '@/types/transactionTypes'
 import { transactionsData } from '@/utils/appData'
 import BottomSheet from '@gorhom/bottom-sheet'
 import React, { useRef, useState } from 'react'
-import { FlatList, Pressable, TextInput, View } from 'react-native'
+import { FlatList, Pressable, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import * as SVG from '../assets/icons'
 
 
 
 const tabs = ['all', 'credit', 'debit']
 const Transaction = () => {
   const safeInsets = useSafeAreaInsets();
-  const inputRef = useRef<TextInput>(null);
   const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
   const [search, setSearch] = useState('');
   const [selectedTab, setSelectedTab] = useState<'all' | 'debit' | 'credit'>('all');
 
   const sheetRef = useRef<BottomSheet>(null);
   const [selectedItem, setSelectedItem] = useState<TransactionItemType>({} as TransactionItemType);
-  const onSearchIconPress = () => {
-    if (inputRef.current) {
-      inputRef.current.focus(); // focus the input when search icon is pressed
-    }
-  };
+
 
   const filteredTransactions = transactions.filter((item) => {
 
@@ -52,40 +47,16 @@ const Transaction = () => {
     setSelectedItem(item);
     sheetRef.current?.snapToIndex(0);
   }
+  const handledSearchChange = (text: string) => {
+    setSearch(text);
+  }
   return (
     <Screen>
       <Header title='Transactions' showIconLeft={true} />
 
 
       <View style={{ paddingVertical: 10, }}>
-        <View style={{ position: 'relative', justifyContent: 'center' }}>
-          <TextInput
-            ref={inputRef}
-            placeholder="Search by name, bank, or account number"
-            value={search}
-            onChangeText={setSearch}
-            style={{
-              backgroundColor: '#F6F8FA',
-              borderRadius: 10,
-              paddingHorizontal: 12,
-              paddingRight: 40, // space for the icon
-              paddingVertical: 10,
-            }}
-          />
-
-          <Pressable
-            onPress={onSearchIconPress}
-            style={{
-              position: 'absolute',
-              right: 12,
-              height: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <SVG.Search height={18} width={18} />
-          </Pressable>
-        </View>
+       <TransactionSearch search={search} handleSearch={handledSearchChange} />
         <View style={{ flexDirection: 'row', gap: 20, marginTop: 20 }}>
           {tabs.map((tab) => (
             <Pressable

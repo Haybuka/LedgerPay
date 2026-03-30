@@ -19,25 +19,7 @@ const BalanceCard = ({ account, balance }: Props) => {
         copyToClipboard(item)
     }
     const context = useContext(AppContext);
-    // const toggleBalanceVisibility = async () => {
-    //     const newValue = !balanceVisible;
 
-    //     setBalanceVisible(newValue);
-    //     setStorageItem('@hideBalance', String(!newValue));
-    // };
-
-    // useFocusEffect(
-    //     React.useCallback(() => {
-    //         getBalanceFromStorage();
-    //     }, [])
-    // );
-
-    // const getBalanceFromStorage = async () => {
-    //     const status = await getStorageItem('@hideBalance');
-    //     const isHidden = status === 'true';
-    //     Alert.alert('Status', `Balance visibility is ${status ? 'hidden' : 'visible'}`);
-    //     setBalanceVisible(!isHidden);
-    // }
 
 
     return (
