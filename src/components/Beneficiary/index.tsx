@@ -3,6 +3,7 @@ import { AppTextStyle, Typography } from '@/components/Typography';
 import { COLORS } from '@/theme/colors';
 import { CONTACTS } from '@/utils/appData';
 import BottomSheet from '@gorhom/bottom-sheet';
+import { useRouter } from 'expo-router';
 import React, { useMemo, useRef, useState } from 'react';
 import { Pressable, SectionList, StyleSheet, TextInput, View } from 'react-native';
 import * as SVG from '../../assets/icons';
@@ -48,6 +49,7 @@ const groupContacts = (contacts: ContactType[]): Section[] => {
 
 const BeneficiaryContactList = () => {
   const [search, setSearch] = useState('');
+  const router = useRouter()
   const [selectedBeneficiary, setSelectedBeneficiary] = useState<ContactType>(
     {} as ContactType,
   );
@@ -86,12 +88,18 @@ const BeneficiaryContactList = () => {
     sheetRef.current?.snapToIndex(0);
   };
 
+  const handleManualUser = () => {
+    router.push('/sendMoney');
+  }
   return (
     <>
       <View style={styles.container}>
         {/* 🔍 Search Input */}
         <View style={styles.inputContainer}>
           <View style={styles.inputInner}>
+            <Typography
+              
+            >To</Typography>
             <TextInput
               ref={inputRef}
               placeholder="Search by name, bank, or account number"
@@ -103,6 +111,7 @@ const BeneficiaryContactList = () => {
                 paddingHorizontal: 12,
                 paddingRight: 40, // space for the icon
                 paddingVertical: 10,
+                flex: 1
               }}
             />
 
@@ -149,9 +158,14 @@ const BeneficiaryContactList = () => {
           //  Section list Empty State setup here
           ListEmptyComponent={() => (
             <View style={styles.listEmptyContainer}>
-              <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.grey300}>
+              <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.ledgerBlue}>
                 No contacts found
               </Typography>
+              <Pressable onPress={handleManualUser}>
+                <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.ledgerBlue} style={{ textDecorationLine: 'underline' }}>
+                  Add Manually
+                </Typography>
+              </Pressable>
             </View>
           )}
         />
@@ -182,7 +196,10 @@ const styles = StyleSheet.create({
   },
   inputInner: {
     position: "relative",
-    justifyContent: "center"
+    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap : 6
   },
   sectionHeaderContainer: {
     paddingVertical: 8,
