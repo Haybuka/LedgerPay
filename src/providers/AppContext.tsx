@@ -20,13 +20,13 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [biometricEnabled, setBiometricEnabledState] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  console.log(hideBalance, 'state loaded')
+
   // 🔹 Load from storage on app start
   useEffect(() => {
     const loadSettings = async () => {
       try {
         const value = await getStorageItem(BALANCE_STORAGE_KEY);
-        console.log(value,'value here')
+     
         if (value !== null) {
           setHideBalanceState(value === 'true');
         }
@@ -34,7 +34,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         if (biometricValue !== null) {
           setBiometricEnabledState(biometricValue === 'true');
         }
-        console.log(value,'hide balance')
+        
       } catch (error) {
         console.log('Error loading hideBalance:', error);
       } finally {

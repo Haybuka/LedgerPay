@@ -9,97 +9,135 @@ import { COLORS } from '@/theme/colors'
 import { TransactionItemType } from '@/types/transactionTypes'
 import { transactionsData } from '@/utils/appData'
 import BottomSheet from '@gorhom/bottom-sheet'
+import NetInfo from '@react-native-community/netinfo'
 import React, { useRef, useState } from 'react'
-import { FlatList, Pressable, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, Pressable, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 
 
 const tabs = ['all', 'credit', 'debit']
 const Transaction = () => {
-  const safeInsets = useSafeAreaInsets();
-  const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
-  const [search, setSearch] = useState('');
-  const [selectedTab, setSelectedTab] = useState<'all' | 'debit' | 'credit'>('all');
-
-  const sheetRef = useRef<BottomSheet>(null);
-  const [selectedItem, setSelectedItem] = useState<TransactionItemType>({} as TransactionItemType);
-
-
-  const filteredTransactions = transactions.filter((item) => {
+    const safeInsets = useSafeAreaInsets();
+    const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
+    const [search, setSearch] = useState('');
+    const [selectedTab, setSelectedTab] = useState<'all' | 'debit' | 'credit'>('all');
+    const [isLoading, setIsLoading] = useState(false);
+    const sheetRef = useRef<BottomSheet>(null);
+    const [selectedItem, setSelectedItem] = useState<TransactionItemType>({} as TransactionItemType);
 
 
-    const query = search.toLowerCase();
+    const checkNetAvailable = async () => {
+        setIsLoading(true);
+        try {
 
-    // Check if the search match items
-    const matchesSearch =
-      item.title.toLowerCase().includes(query) ||
-      item.type.toLowerCase().includes(query) ||
-      item.amount.toString().includes(query);
-
-    // Check tab filter
-    const matchesTab = selectedTab === 'all' ? true : item.type === selectedTab;
-
-    return matchesSearch && matchesTab;
-  });
-
-  const handleSelectedItem = (item: TransactionItemType) => {
-    setSelectedItem(item);
-    sheetRef.current?.snapToIndex(0);
-  }
-  const handledSearchChange = (text: string) => {
-    setSearch(text);
-  }
-  return (
-    <Screen>
-      <Header title='Transactions' showIconLeft={true} />
+            const internetConnection = await NetInfo.fetch();
+            const isConnected = internetConnection.isConnected;
+            const isOnline = typeof isConnected === 'boolean' ? isConnected : true;
+            Alert.alert(
+                'Network Status',
+                isOnline ? 'You are online' : 'No internet connection',
+                [{ text: 'OK' }],
+                { cancelable: true }
+            );
+            // if (!isOnline) {
+            //     return Promise.reject(new Error('Please connect to the internet'));
+            // }
 
 
-      <View style={{ paddingVertical: 10, }}>
-       <TransactionSearch search={search} handleSearch={handledSearchChange} />
-        <View style={{ flexDirection: 'row', gap: 20, marginTop: 20 }}>
-          {tabs.map((tab) => (
-            <Pressable
-              key={tab}
-              onPress={() => setSelectedTab(tab as 'all' | 'credit' | 'debit')}
-              style={{
-                // flex: 1,
-                paddingVertical: 4,
-                paddingHorizontal: 16,
-                borderRadius: 10,
-                backgroundColor: selectedTab === tab ? COLORS.ledgerBlue : COLORS.grey50,
-                alignItems: 'center',
-              }}
-            >
+            return true; // Placeholder: Assume network is always available
+        } catch (error) {
 
-              <Typography color={selectedTab === tab ? COLORS.white : COLORS.white}>
-                {tab?.charAt(0)?.toUpperCase() + tab?.slice(1)}
-              </Typography>
-            </Pressable>
-          ))}
-        </View>
-      </View>
-      <FlatList
-        data={filteredTransactions}
-        contentContainerStyle={{ marginBottom: 10 }}
-        initialNumToRender={5}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <TransactionItem item={item} handleSelected={handleSelectedItem} />}
-        ListEmptyComponent={() => (
-          <View style={{ padding: 20, alignItems: 'center', }}>
-            <Typography style={{ marginTop: 10, fontSize: 16, color: '#999' }}>
-              No transactions found
-            </Typography>
-          </View>
-        )}
-      />
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
-      <BottomSheetUsage ref={sheetRef}>
-        <TransactionSheetUi item={selectedItem} />
-      </BottomSheetUsage>
-    </Screen>
-  )
+    function onRefresh() {
+        checkNetAvailable()
+    }
+
+
+    const filteredTransactions = transactions.filter((item) => {
+
+
+        const query = search.toLowerCase();
+
+        // Check if the search match items
+        const matchesSearch =
+            item.title.toLowerCase().includes(query) ||
+            item.type.toLowerCase().includes(query) ||
+            item.amount.toString().includes(query);
+
+        // Check tab filter
+        const matchesTab = selectedTab === 'all' ? true : item.type === selectedTab;
+
+        return matchesSearch && matchesTab;
+    });
+
+    const handleSelectedItem = (item: TransactionItemType) => {
+        setSelectedItem(item);
+        sheetRef.current?.snapToIndex(0);
+    }
+    const handledSearchChange = (text: string) => {
+        setSearch(text);
+    }
+    return (
+        <Screen>
+            <Header title='Transactions' showIconLeft={true} />
+
+            {isLoading ? (<ActivityIndicator />) : (
+
+                <>
+                    <View style={{ paddingVertical: 10, }}>
+                        <TransactionSearch search={search} handleSearch={handledSearchChange} />
+                        <View style={{ flexDirection: 'row', gap: 20, marginTop: 20 }}>
+                            {tabs.map((tab) => (
+                                <Pressable
+                                    key={tab}
+                                    onPress={() => setSelectedTab(tab as 'all' | 'credit' | 'debit')}
+                                    style={{
+                                        // flex: 1,
+                                        paddingVertical: 4,
+                                        paddingHorizontal: 16,
+                                        borderRadius: 10,
+                                        backgroundColor: selectedTab === tab ? COLORS.ledgerBlue : COLORS.grey50,
+                                        alignItems: 'center',
+                                    }}
+                                >
+
+                                    <Typography color={selectedTab === tab ? COLORS.white : COLORS.white}>
+                                        {tab?.charAt(0)?.toUpperCase() + tab?.slice(1)}
+                                    </Typography>
+                                </Pressable>
+                            ))}
+                        </View>
+                    </View>
+                    <FlatList
+                        data={filteredTransactions}
+                        contentContainerStyle={{ marginBottom: 10 }}
+                        initialNumToRender={5}
+                        showsVerticalScrollIndicator={false}
+                        keyExtractor={(item) => item.id.toString()}
+                        refreshing={isLoading}
+                        onRefresh={onRefresh}
+                        renderItem={({ item }) => <TransactionItem item={item} handleSelected={handleSelectedItem} />}
+                        ListEmptyComponent={() => (
+                            <View style={{ padding: 20, alignItems: 'center', }}>
+                                <Typography style={{ marginTop: 10, fontSize: 16, color: '#999' }}>
+                                    No transactions found
+                                </Typography>
+                            </View>
+                        )}
+                    />
+
+                    <BottomSheetUsage ref={sheetRef}>
+                        <TransactionSheetUi item={selectedItem} />
+                    </BottomSheetUsage>
+                </>
+            )}
+        </Screen>
+    )
 }
 
 export default Transaction
