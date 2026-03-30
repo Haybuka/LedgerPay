@@ -5,4 +5,5 @@ export interface TransactionItemType {
   time: string;
   amount: number;
   icon: string;
+  note ? : string
 }

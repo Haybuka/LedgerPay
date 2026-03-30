@@ -7,7 +7,7 @@ type Props = {
 }
 const TransactionSheetUi = ({ item }: Props) => {
 
-     const isDebit = item?.type === 'debit';
+    const isDebit = item?.type === 'debit';
     return (
         <View>
 
@@ -39,7 +39,10 @@ const TransactionSheetUi = ({ item }: Props) => {
                 <Text style={styles.label}>Reference ID</Text>
                 <Text style={styles.value}>{item?.id}</Text>
             </View>
-
+            <View style={styles.row}>
+                <Text style={styles.label}>Note</Text>
+                <Text style={styles.value}>{item?.note}</Text>
+            </View>
         </View>
     )
 }

@@ -18,26 +18,27 @@ const CtaSection = () => {
     return (
         <View style={{ flexDirection: 'row', gap: 16, marginVertical: 20 }}>
             <CtaButton
-                label="Send"
-onPress={handleCtaRoute}
-                icon={<Ionicons size={24} color={COLORS.white} name='swap-horizontal-outline' />}
-            />
-            <CtaButton
                 label="Receive"
                 onPress={handleCtaRoute}
 
-                icon={<Ionicons size={24} color={COLORS.white} name='swap-horizontal-outline' />}
+                icon={<Ionicons size={24} color={COLORS.white} name="arrow-down" />}
+            />
+            <CtaButton
+                label="Send"
+                onPress={handleCtaRoute}
+                bgColor='#E10600'
+                icon={<Ionicons size={24} color={COLORS.white} name="arrow-up" />}
             />
             <CtaButton
                 label="Swap"
                 onPress={handleCtaRoute}
-
-                icon={<Ionicons size={24} color={COLORS.white} name='swap-horizontal-outline' />}
+                bgColor="#0072CE"
+                icon={<Ionicons size={24} color={COLORS.white} name='swap-horizontal' />}
             />
             <CtaButton
                 label="More"
-
-                icon={<Ionicons size={24} color={COLORS.white} name='menu-sharp' />}
+                bgColor="#9E9E9E"
+                icon={<Ionicons size={24} color={COLORS.white} name="ellipsis-horizontal" />}
             />
 
 

@@ -8,11 +8,12 @@ type Props = {
     label: string;
     icon?: React.ReactNode;
     onPress?: () => void;
+    bgColor?: string;
 }
-const CtaButton = ({ label, icon, onPress }: Props) => {
+const CtaButton = ({ label, icon, onPress,bgColor }: Props) => {
     return (
         <Pressable onPress={onPress}>
-            <View style={styles.btnContainer}>
+            <View style={[styles.btnContainer, { backgroundColor: bgColor ? bgColor : COLORS.ledgerBlue }]}>
                 {icon}
             </View>
             <Typography textAlign='center' color={COLORS.ledgerBlue}>{label} </Typography>
@@ -25,7 +26,7 @@ export default CtaButton;
 const styles = StyleSheet.create({
     btnContainer: {
         flexDirection: 'row',
-        backgroundColor: COLORS.ledgerBlue,
+        // backgroundColor: '#0072CE',
         gap: 10,
         paddingHorizontal: 12,
         paddingVertical: 12,

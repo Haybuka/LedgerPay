@@ -15,7 +15,7 @@ export default function NetworkBanner() {
       // show banner
       Animated.timing(translateY, {
         toValue: 0,
-        duration: 300,
+        duration: 600,
         useNativeDriver: true,
       }).start();
     } else {
@@ -23,7 +23,7 @@ export default function NetworkBanner() {
       setTimeout(() => {
         Animated.timing(translateY, {
           toValue: -100,
-          duration: 300,
+          duration: 600,
           useNativeDriver: true,
         }).start();
       }, 1500);
