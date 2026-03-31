@@ -16,7 +16,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 
 
-const tabs = ['all', 'credit', 'debit']
+const tabs = ['all', 'credit', 'debit'];
+
 const Transaction = () => {
     const safeInsets = useSafeAreaInsets();
     const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
@@ -26,9 +27,9 @@ const Transaction = () => {
     const sheetRef = useRef<BottomSheet>(null);
     const [selectedItem, setSelectedItem] = useState<TransactionItemType>({} as TransactionItemType);
 
-    const { isOnline, isReachable, networkConnectionType } = useContext(NetworkContext)
+    const { isOnline,  networkConnectionType } = useContext(NetworkContext)
 
-    const checkNetAvailable = async () => {
+    const checkNetAvailable =  () => {
         setIsLoading(true);
         try {
             Alert.alert(
@@ -88,7 +89,6 @@ const Transaction = () => {
                                     key={tab}
                                     onPress={() => setSelectedTab(tab as 'all' | 'credit' | 'debit')}
                                     style={{
-                                        // flex: 1,
                                         paddingVertical: 4,
                                         paddingHorizontal: 16,
                                         borderRadius: 10,

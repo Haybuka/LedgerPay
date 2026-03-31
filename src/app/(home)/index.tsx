@@ -7,11 +7,10 @@ import { UserProfileType } from "@/types/userType";
 import { userProfile } from "@/utils/constants";
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 
 export default function Home() {
-  const safeInsets = useSafeAreaInsets();
+  
   const [user, setUser] = useState<UserProfileType>(userProfile);
 
 

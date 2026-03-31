@@ -22,12 +22,12 @@ const TransactionSearch = ({ search, handleSearch }: Prop) => {
                 ref={inputRef}
                 placeholder="Search by name, bank, or account number"
                 value={search}
-                onChangeText={() => handleSearch(search)}
+                onChangeText={(text) => handleSearch(text)}
                 style={{
                     backgroundColor: '#F6F8FA',
                     borderRadius: 10,
                     paddingHorizontal: 12,
-                    paddingRight: 40, // space for the icon
+                    paddingRight: 40, 
                     paddingVertical: 10,
                 }}
             />

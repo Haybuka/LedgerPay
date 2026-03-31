@@ -22,7 +22,7 @@ const RecentTransaction = () => {
     }
     return (
         <FlatList
-            data={transactions.slice(0, 3)}
+            data={transactions.slice(0, 5)}
             contentContainerStyle={{ marginBottom: 10 }}
             ListHeaderComponent={() => (
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>

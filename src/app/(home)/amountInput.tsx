@@ -6,6 +6,7 @@ import Screen from '@/components/Screen';
 import BottomSheetUsage from '@/components/SheetModal';
 import { AppTextStyle, Typography } from '@/components/Typography';
 import { COLORS } from '@/theme/colors';
+import { formatAmountUi } from '@/utils/currencyFormatter';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
@@ -32,7 +33,7 @@ const KEYS = [
 const AmountInput = () => {
     const { recipient } = useLocalSearchParams<AmountInputParams>();
     const router = useRouter()
-
+    const [isSheetOpen, setIsSheetOpen] = useState(false);
     const recipientAccount: ContactType | null = recipient
         ? JSON.parse(recipient)
         : null;
@@ -40,15 +41,11 @@ const AmountInput = () => {
     const [amount, setAmount] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const sheetRef = useRef<BottomSheet>(null);
-    const formatAmount = (value: string) => {
-        if (!value) return '0'
 
-        const number = Number(value)
-
-        if (isNaN(number)) return value
-
-        return number.toLocaleString('en-NG')
-    }
+    const handleSheetChange = (index: number) => {
+        // index >= 0 => open, index === -1 => closed
+        setIsSheetOpen(index >= 0);
+    };
 
     const handleKeyPress = (key: string) => {
         if (key === '⌫') {
@@ -70,14 +67,19 @@ const AmountInput = () => {
         setIsLoading(true)
         // console.log(data, 'data here');
         sheetRef.current?.snapToIndex(0);
+        setIsSheetOpen(true)
     }
     const handleShowReceipt = () => {
         router.push('/receipt');
     }
     const handleClose = () => {
-       sheetRef.current?.close();
-       setIsLoading(false)
+        if (sheetRef.current && isSheetOpen) {
+            sheetRef.current?.close();
+            setIsLoading(false)
+        }
+
     }
+
     return (
         <Screen>
             <KeyboardAvoidingView
@@ -101,7 +103,7 @@ const AmountInput = () => {
                             <Typography style={styles.currency}>$</Typography>
                             <Typography style={styles.amount}>
 
-                                {formatAmount(amount)}
+                                {formatAmountUi(amount)}
                             </Typography>
                         </View>
 
@@ -134,9 +136,7 @@ const AmountInput = () => {
             </KeyboardAvoidingView>
             <BottomSheetUsage
                 ref={sheetRef}
-                onChange={() => {
 
-                }}
             >
                 <View>
                     <Typography textstyle={AppTextStyle.heading7}>Confirm Transfer</Typography>
