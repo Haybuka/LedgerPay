@@ -1,8 +1,11 @@
 {
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
+    "build": {
+        "development": {
+            "developmentClient": true,
+            "distribution": "internal"
+        }
+    },
+    "cli": {
+        "appVersionSource": "remote"
     }
-  }
 }
