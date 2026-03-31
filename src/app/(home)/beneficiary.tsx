@@ -1,16 +1,32 @@
 import BeneficiaryContactList from '@/components/Beneficiary'
 import Header from '@/components/CustomHeader'
 import Screen from '@/components/Screen'
-import React from 'react'
+import { useNavigation } from 'expo-router'
+import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 
 const Beneficiary = () => {
-  return (
-    <Screen >
-      <Header title='Select Beneficiary' showIconLeft={true} />
-      <BeneficiaryContactList />
-    </Screen>
-  )
+
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        navigation.getParent()?.setOptions({
+            tabBarStyle: { display: 'none' },
+        });
+
+        return () => {
+            navigation.getParent()?.setOptions({
+                tabBarStyle: undefined, // restore when leaving
+            });
+        };
+    }, [navigation]);
+
+    return (
+        <Screen >
+            <Header title='Select Beneficiary' showIconLeft={true} />
+            <BeneficiaryContactList />
+        </Screen>
+    )
 }
 
 export default Beneficiary
