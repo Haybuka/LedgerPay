@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 10,
     paddingHorizontal: 12,
-    paddingVertical: 12,
+    paddingVertical: 14,
     borderRadius: 20,
     backgroundColor: COLORS.ledgerBlue,
   },

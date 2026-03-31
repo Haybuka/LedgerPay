@@ -7,7 +7,7 @@ import BottomSheetUsage from '@/components/SheetModal';
 import { AppTextStyle, Typography } from '@/components/Typography';
 import { COLORS } from '@/theme/colors';
 import BottomSheet from '@gorhom/bottom-sheet';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
 import {
     KeyboardAvoidingView,
@@ -31,6 +31,7 @@ const KEYS = [
 
 const AmountInput = () => {
     const { recipient } = useLocalSearchParams<AmountInputParams>();
+    const router = useRouter()
 
     const recipientAccount: ContactType | null = recipient
         ? JSON.parse(recipient)
@@ -69,6 +70,13 @@ const AmountInput = () => {
         setIsLoading(true)
         // console.log(data, 'data here');
         sheetRef.current?.snapToIndex(0);
+    }
+    const handleShowReceipt = () => {
+        router.push('/receipt');
+    }
+    const handleClose = () => {
+       sheetRef.current?.close();
+       setIsLoading(false)
     }
     return (
         <Screen>
@@ -142,27 +150,26 @@ const AmountInput = () => {
                 </View>
                 <View style={{ marginVertical: 14, borderWidth: 1, borderColor: COLORS.grey500, padding: 14, borderRadius: 8, backgroundColor: COLORS.grey600 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                        <Typography textstyle={AppTextStyle.bodyLarge} color={COLORS.grey400}>Amount</Typography>
-                        <Typography textstyle={AppTextStyle.bodyLarge} color={COLORS.grey400}>{`$ ${amount}`}</Typography>
+                        <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.grey400}>Amount</Typography>
+                        <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.grey400}>{`$ ${amount}`}</Typography>
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, alignItems: 'center', }}>
-                        <Typography textstyle={AppTextStyle.bodyLarge} color={COLORS.grey400}>Fee</Typography>
-                        <Typography textstyle={AppTextStyle.bodyLarge} color={COLORS.grey400}>{`$ ${amount}`}</Typography>
+                        <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.grey400}>Fee</Typography>
+                        <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.grey400}>{`$ ${0}`}</Typography>
                     </View>
                     <View style={{ borderBottomWidth: 0.2, borderColor: COLORS.grey400, marginVertical: 8 }} />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10, alignItems: 'center', }}>
                         <Typography textstyle={AppTextStyle.bodyLarge} color={COLORS.grey400}>Total</Typography>
-                        <Typography textstyle={AppTextStyle.heading7} color={COLORS.grey400}>{`$ ${amount}`}</Typography>
+                        <Typography textstyle={AppTextStyle.heading7} style={{ fontSize: 18 }} color={COLORS.grey400}>{`$ ${amount}`}</Typography>
                     </View>
                 </View>
                 <View style={{ marginVertical: 20, gap: 10 }}>
                     <Button
                         label='Confirm Payment'
                         icon=""
-
-                        onPress={handleSubmit}
+                        onPress={handleShowReceipt}
                     />
-                    <Pressable style={[styles.btn, { borderWidth: 1, borderColor: COLORS.ledgerBlue }]}>
+                    <Pressable onPress={handleClose} style={[styles.btn, { borderWidth: 1, borderColor: COLORS.ledgerBlue }]}>
                         <Typography textAlign='center'>Cancel</Typography>
                     </Pressable>
                 </View>
@@ -217,7 +224,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 10,
         paddingHorizontal: 12,
-        paddingVertical: 8,
+        paddingVertical: 14,
         borderRadius: 20,
     }
 });

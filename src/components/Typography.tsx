@@ -67,6 +67,6 @@ export const Typography = ({
     ...props
 }: Props) => {
     return (
-        <Text style={[styles[textstyle], { color, textAlign,}, style]} {...props} />
+        <Text style={[styles[textstyle], { color, textAlign,fontFamily : 'nunito-old' }, style]} {...props} />
     );
 };
