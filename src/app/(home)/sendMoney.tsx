@@ -5,8 +5,8 @@ import { FormInput } from '@/components/FormInput'
 import Screen from '@/components/Screen'
 import { Typography } from '@/components/Typography'
 import { COLORS } from '@/theme/colors'
-import { useLocalSearchParams } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import React, { useEffect, } from 'react'
 import { useForm } from 'react-hook-form'
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native'
 
@@ -24,7 +24,6 @@ export type FormData = {
 const SendMoney = () => {
 
   const { item } = useLocalSearchParams<SendMoneyParams>();
-  const [to, setTo] = useState('')
   const accountSelected: ContactType | null = item
     ? JSON.parse(item)
     : null;
@@ -54,8 +53,16 @@ const SendMoney = () => {
     }
   }, [item]);
 
+  const router = useRouter()
+
   const onSubmit = (data: FormData) => {
-    console.log('FORM DATA:', data)
+    console.log(data,'data')
+    router.push({
+      pathname: '/amountInput',
+      params: {
+        recipient: JSON.stringify(data)
+      },
+    });
   }
   return (
     <Screen >
@@ -81,7 +88,7 @@ const SendMoney = () => {
               rules={{ required: 'Account number is required' }}
               keyboardType="numeric"      // numeric keyboard
               maxLength={12}
-              
+
             />
             <FormInput<FormData>
               control={control}

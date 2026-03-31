@@ -10,18 +10,21 @@ type Props = PressableProps & {
   loading?: boolean;
 };
 
-const Button = ({ label, icon, bgColor, style, loading, ...rest }: Props) => {
+const Button = ({ label, icon, bgColor, style, loading,disabled, ...rest }: Props) => {
   return (
     <>
       {loading ? (
-        <ActivityIndicator color={COLORS.ledgerBlue} />
+        <ActivityIndicator size={'large'} color={COLORS.ledgerBlue} />
       ): (
-        <Pressable {...rest}>
+        <Pressable  {...rest}>
       <View
         style={[
           styles.btnContainer,
-          { backgroundColor: bgColor ? bgColor : COLORS.ledgerBlue },
-
+          { 
+            backgroundColor: bgColor ? bgColor : COLORS.ledgerBlue,
+            opacity : disabled ? 0.4 : 1
+           },
+  
         ]}
       >
         {icon}

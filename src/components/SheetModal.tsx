@@ -7,6 +7,7 @@ import { AppTextStyle, Typography } from './Typography';
 
 type Props = {
     children: React.ReactNode;
+    onChange? : () => void;
 }
 
 const renderBackdrop = (props: any) => (
@@ -18,11 +19,11 @@ const renderBackdrop = (props: any) => (
     />
 );
 
-const BottomSheetUsage = forwardRef<BottomSheet, Props>(({  children }, ref) => {
+const BottomSheetUsage = forwardRef<BottomSheet, Props>(({  children,onChange }, ref) => {
     const snapPoints = useMemo(() => ['40%', '60%'], []);
 
     return (
-        <BottomSheet backdropComponent={renderBackdrop} ref={ref} index={-1} snapPoints={snapPoints} enablePanDownToClose={true} backgroundStyle={{ borderRadius: 20, padding: 20 }} handleIndicatorStyle={{ backgroundColor: '#ccc', width: 40, height: 5, marginBottom: 10 }} >
+        <BottomSheet onChange={onChange} backdropComponent={renderBackdrop} ref={ref} index={-1} snapPoints={snapPoints} enablePanDownToClose={true} backgroundStyle={{ borderRadius: 20, padding: 20 }} handleIndicatorStyle={{ backgroundColor: '#ccc', width: 40, height: 5, marginBottom: 10 }} >
             <BottomSheetView style={styles.container} >
                 {!children ? (
                     <Typography textstyle={AppTextStyle.bodyMediumBold}>Loading...</Typography>

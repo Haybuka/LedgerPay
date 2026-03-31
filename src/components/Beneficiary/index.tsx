@@ -17,6 +17,7 @@ export type ContactType = {
   name: string;
   bank: string;
   accountNumber: string;
+  note? : string;
 };
 
 type Section = {
