@@ -23,7 +23,7 @@ const Receipt = () => {
   }, [item]);
 
   const handleDone = () => {
-    router.replace('/'); // go back to home or dashboard
+    router.replace('/(home)'); // go back to home or dashboard
   };
 
   return (

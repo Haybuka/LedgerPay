@@ -9,8 +9,6 @@ import { Pressable, SectionList, StyleSheet, TextInput, View } from 'react-nativ
 import * as SVG from '../../assets/icons';
 import BeneficiaryContactitem from './ContactItem';
 import DeleteMfbBeneficiary from './DeleteBeneficiary';
-// import BeneficiaryContactitem from '../ContactItem';
-// import DeleteMfbBeneficiary from '../DeleteBeneficiary';
 
 export type ContactType = {
   id: string;

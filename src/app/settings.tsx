@@ -11,30 +11,31 @@ import React, { useContext, useState } from 'react'
 import { Alert, SectionList, StyleSheet, View } from 'react-native'
 
 const Settings = () => {
+  
   const [pushNotification, setPushNotification] = useState(false);
   const context = useContext(AppContext);
 
-const handleLogout = () => {
-  Alert.alert(
-    'Log out',
-    'Are you sure you want to log out?',
-    [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
-      {
-        text: 'Log out',
-        style: 'destructive',
-        onPress: () => {
-          
-          console.log('User logged out');
+  const handleLogout = () => {
+    Alert.alert(
+      'Log out',
+      'Are you sure you want to log out?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
         },
-      },
-    ],
-    { cancelable: true }
-  );
-};
+        {
+          text: 'Log out',
+          style: 'destructive',
+          onPress: () => {
+
+            console.log('User logged out');
+          },
+        },
+      ],
+      { cancelable: true }
+    );
+  };
   const sections = [
     {
       title: 'Preferences',
@@ -69,21 +70,21 @@ const handleLogout = () => {
           type: 'menu',
           label: 'Change Pin',
           value: false,
-          onToggle: () => {},
+          onToggle: () => { },
           icon: <Ionicons name='key-outline' size={24} color={COLORS.ledgerBlue} />
         },
         {
           type: 'menu',
           label: 'Privacy Policy',
           value: false,
-          onToggle: () => {},
+          onToggle: () => { },
           icon: <Ionicons name='book-outline' size={24} color={COLORS.ledgerBlue} />
         },
         {
           type: 'menu',
           label: 'Terms of Service',
           value: false,
-          onToggle: () => {},
+          onToggle: () => { },
           icon: <Ionicons name='list-outline' size={24} color={COLORS.ledgerBlue} />
         }
       ]
@@ -94,7 +95,13 @@ const handleLogout = () => {
     <Screen>
       <Header title='Settings' showIconLeft={true} />
 
-    
+
+      {/* - make a build.
+    - send apk to google drive.
+    - test for ios
+    - confirm prebuild vs dev client. */}
+
+
       <View style={style.avatar}>
         <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading3}>PC</Typography>
       </View>
@@ -111,7 +118,7 @@ const handleLogout = () => {
         </Typography>
       </View>
 
-    
+
       <SectionList
         sections={sections}
         keyExtractor={(item, index) => item.label ? item.label : item.label + index}
@@ -147,7 +154,7 @@ const handleLogout = () => {
         showsVerticalScrollIndicator={false}
       />
 
-    
+
       <View style={style.logout}>
         <Button
           label='Log out'

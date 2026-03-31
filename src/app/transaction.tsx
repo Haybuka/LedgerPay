@@ -4,22 +4,20 @@ import BottomSheetUsage from '@/components/SheetModal'
 import TransactionItem from '@/components/transaction/TransactionItem'
 import TransactionSearch from '@/components/transaction/TransactionSearch'
 import TransactionSheetUi from '@/components/transaction/TransactionSheetUi'
+import TransactionTabPill from '@/components/transaction/TransactionTabPill'
 import { Typography } from '@/components/Typography'
 import { NetworkContext } from '@/providers/NetworkContext'
-import { COLORS } from '@/theme/colors'
 import { TransactionItemType } from '@/types/transactionTypes'
 import { transactionsData } from '@/utils/appData'
 import BottomSheet from '@gorhom/bottom-sheet'
 import React, { useContext, useRef, useState } from 'react'
-import { ActivityIndicator, Alert, FlatList, Pressable, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { ActivityIndicator, Alert, FlatList, View } from 'react-native'
 
+export type TabType = 'all' | 'credit' | 'debit';
 
-
-const tabs = ['all', 'credit', 'debit'];
+const tabs: TabType[] = ['all', 'credit', 'debit'];
 
 const Transaction = () => {
-    const safeInsets = useSafeAreaInsets();
     const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
     const [search, setSearch] = useState('');
     const [selectedTab, setSelectedTab] = useState<'all' | 'debit' | 'credit'>('all');
@@ -27,9 +25,13 @@ const Transaction = () => {
     const sheetRef = useRef<BottomSheet>(null);
     const [selectedItem, setSelectedItem] = useState<TransactionItemType>({} as TransactionItemType);
 
-    const { isOnline,  networkConnectionType } = useContext(NetworkContext)
+    const updateTabSelect = (item: TabType) => {
+        setSelectedTab(item)
+    }
 
-    const checkNetAvailable =  () => {
+    const { isOnline, networkConnectionType } = useContext(NetworkContext)
+
+    const checkNetAvailable = () => {
         setIsLoading(true);
         try {
             Alert.alert(
@@ -78,32 +80,21 @@ const Transaction = () => {
         <Screen>
             <Header title='Transactions' showIconLeft={true} />
 
-            {isLoading ? (<ActivityIndicator />) : (
+            <View style={{ paddingVertical: 10, }}>
+                <TransactionSearch search={search} handleSearch={handledSearchChange} />
+
+                <TransactionTabPill
+                    tabs={tabs}
+                    selectedTab={selectedTab}
+                    updateSelectedTab={updateTabSelect}
+                />
+            </View>
+            {isLoading ? (<View style={{flex : 1,  justifyContent : 'center'}}>
+                <ActivityIndicator size={'large'} />
+            </View>) : (
 
                 <>
-                    <View style={{ paddingVertical: 10, }}>
-                        <TransactionSearch search={search} handleSearch={handledSearchChange} />
-                        <View style={{ flexDirection: 'row', gap: 20, marginTop: 20 }}>
-                            {tabs.map((tab) => (
-                                <Pressable
-                                    key={tab}
-                                    onPress={() => setSelectedTab(tab as 'all' | 'credit' | 'debit')}
-                                    style={{
-                                        paddingVertical: 4,
-                                        paddingHorizontal: 16,
-                                        borderRadius: 10,
-                                        backgroundColor: selectedTab === tab ? COLORS.ledgerBlue : COLORS.grey50,
-                                        alignItems: 'center',
-                                    }}
-                                >
 
-                                    <Typography color={selectedTab === tab ? COLORS.white : COLORS.white}>
-                                        {tab?.charAt(0)?.toUpperCase() + tab?.slice(1)}
-                                    </Typography>
-                                </Pressable>
-                            ))}
-                        </View>
-                    </View>
                     <FlatList
                         data={filteredTransactions}
                         contentContainerStyle={{ marginBottom: 10 }}
@@ -122,11 +113,13 @@ const Transaction = () => {
                         )}
                     />
 
-                    <BottomSheetUsage ref={sheetRef}>
-                        <TransactionSheetUi item={selectedItem} />
-                    </BottomSheetUsage>
+
                 </>
+
             )}
+            <BottomSheetUsage ref={sheetRef}>
+                <TransactionSheetUi item={selectedItem} />
+            </BottomSheetUsage>
         </Screen>
     )
 }

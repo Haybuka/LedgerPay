@@ -42,10 +42,6 @@ const AmountInput = () => {
     const [isLoading, setIsLoading] = useState(false);
     const sheetRef = useRef<BottomSheet>(null);
 
-    const handleSheetChange = (index: number) => {
-        // index >= 0 => open, index === -1 => closed
-        setIsSheetOpen(index >= 0);
-    };
 
     const handleKeyPress = (key: string) => {
         if (key === '⌫') {
@@ -65,7 +61,6 @@ const AmountInput = () => {
     const handleSubmit = () => {
         const data = { ...recipientAccount, amount };
         setIsLoading(true)
-        // console.log(data, 'data here');
         sheetRef.current?.snapToIndex(0);
         setIsSheetOpen(true)
     }
