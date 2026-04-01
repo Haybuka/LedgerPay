@@ -3,28 +3,39 @@ import CtaSection from "@/components/Home/CtaSection";
 import Greetings from "@/components/Home/Greetings";
 import RecentTransaction from "@/components/Home/RecentTransaction";
 import Screen from "@/components/Screen";
+import { useBiometricAuth } from "@/hooks/useBiometric";
+import { AppContext } from "@/providers/AppContext";
 import { UserProfileType } from "@/types/userType";
 import { userProfile } from "@/utils/constants";
-import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useContext, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 
 export default function Home() {
-  
+
   const [user, setUser] = useState<UserProfileType>(userProfile);
 
 
-  // const { isConnected, isOnline, isReachable,networkConnectionType } = useContext(NetworkContext)
+  const { biometricEnabled } = useContext(AppContext)
 
-  // if (!isOnline || !isReachable) {
-  //   Alert.alert(
-  //     `${networkConnectionType} Network Status`,
-  //     isOnline ? 'You are online' : 'No internet connection',
-  //     [{ text: 'OK' }],
-  //     { cancelable: true }
-  //   );
-  // }
+  
+  const { isAuthenticated, isLoading, error } = useBiometricAuth(biometricEnabled);
 
+  if (biometricEnabled && isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Authenticating...</Text>
+      </View>
+    );
+  }
+
+  if (biometricEnabled && !isAuthenticated) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>{error || 'Authentication required'}</Text>
+      </View>
+    );
+  }
   return (
 
     <Screen>
