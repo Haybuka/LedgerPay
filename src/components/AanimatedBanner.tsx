@@ -22,7 +22,7 @@ export default function NetworkBanner() {
       // hide after short delay
       setTimeout(() => {
         Animated.timing(translateY, {
-          toValue: -100,
+          toValue: -600,
           duration: 600,
           useNativeDriver: true,
         }).start();

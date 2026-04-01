@@ -51,7 +51,7 @@ const BalanceCard = ({ account, balance }: Props) => {
                     </>
                 ) : (
                     <>
-                        <Typography textstyle={AppTextStyle.heading3} color={COLORS.ledgerBlue}>{account}</Typography>
+                        <Typography style={{fontFamily : 'nunito-Bold'}} textstyle={AppTextStyle.heading3} color={COLORS.ledgerBlue}>{account}</Typography>
 
                         <Pressable onPress={() => handleCopy(`${account}`)}>
                             <Ionicons
