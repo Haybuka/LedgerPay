@@ -1,5 +1,5 @@
-import BottomSheetUsage from '@/components/SheetModal';
-import { AppTextStyle, Typography } from '@/components/Typography';
+import { AppTextStyle, Typography } from '@/atoms/Typography';
+import BottomSheetUsage from '@/organisms/SheetModal';
 import { COLORS } from '@/theme/colors';
 import { CONTACTS } from '@/utils/appData';
 import BottomSheet from '@gorhom/bottom-sheet';

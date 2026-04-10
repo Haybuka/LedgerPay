@@ -1,6 +1,6 @@
 import BeneficiaryContactList from '@/components/Beneficiary'
-import Header from '@/components/CustomHeader'
-import Screen from '@/components/Screen'
+import Header from '@/organisms/CustomHeader'
+import Screen from '@/templates/Screen'
 import { useNavigation } from 'expo-router'
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'

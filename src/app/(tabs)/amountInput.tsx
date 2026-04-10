@@ -1,10 +1,11 @@
-import AmountDetails from '@/components/Amount/AmountDetails';
+import Button from '@/atoms/Button';
 import { ContactType } from '@/components/Beneficiary';
-import Button from '@/components/Button';
-import Header from '@/components/CustomHeader';
-import Screen from '@/components/Screen';
-import BottomSheetUsage from '@/components/SheetModal';
-import { AppTextStyle, Typography } from '@/components/Typography';
+import AmountDetails from '@/molecules/AmountDetails';
+
+import { AppTextStyle, Typography } from '@/atoms/Typography';
+import Header from '@/organisms/CustomHeader';
+import BottomSheetUsage from '@/organisms/SheetModal';
+import Screen from '@/templates/Screen';
 import { COLORS } from '@/theme/colors';
 import { formatAmountUi } from '@/utils/currencyFormatter';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         marginVertical: 10,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     keyText: {
         fontSize: 24,

@@ -1,7 +1,7 @@
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
 import React, { forwardRef, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { AppTextStyle, Typography } from './Typography';
+import { AppTextStyle, Typography } from '../atoms/Typography';
 
 
 

@@ -5,7 +5,7 @@ import { formatCurrency } from '@/utils/currencyFormatter';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import * as SVG from '../../assets/icons';
-import { AppTextStyle, Typography } from '../Typography';
+import { AppTextStyle, Typography } from '../../atoms/Typography';
 
 
 type Props = {

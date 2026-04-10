@@ -1,8 +1,9 @@
-import { Typography } from '@/components/Typography'
+import { Typography } from '@/atoms/Typography'
+import LedgerInputLabel from '@/molecules/LedgerInputLabel'
 import { COLORS } from '@/theme/colors'
 import React from 'react'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
-import { StyleSheet, TextInput, TextInputProps, View } from 'react-native'
+import { StyleSheet, TextInputProps, View } from 'react-native'
 
 type FormInputProps<T extends FieldValues> = {
     control: Control<T>
@@ -23,23 +24,18 @@ export function FormInput<T extends FieldValues>({
             control={control}
             name={name}
             rules={rules}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
+            render={({ field: { value, onChange, ...rest }, fieldState: { error } }) => (
                 <View style={styles.inputContainer}>
                     <View style={styles.container}>
-                        <View style={styles.inputInner}>
-                            {label && <Typography>{label}</Typography>}
+                        <LedgerInputLabel
+                            label={label}
+                            value={value}
+                            onChange={onChange}
+                            {...rest}
+                        />
 
-
-                            <TextInput
-                                value={value}
-                                onChangeText={onChange}
-                                style={styles.input}
-                                {...inputProps}
-                            />
-
-                        </View>
                     </View>
-                  
+
                     {error && (
                         <Typography style={styles.error}>
                             {error.message}
@@ -55,13 +51,13 @@ const styles = StyleSheet.create({
     inputContainer: {
         marginBottom: 14
     },
-     container: {
+    container: {
         paddingVertical: 6,
         paddingHorizontal: 10,
         borderWidth: 1,
         borderColor: COLORS.grey50,
         borderRadius: 14,
-        
+
     },
     input: {
 

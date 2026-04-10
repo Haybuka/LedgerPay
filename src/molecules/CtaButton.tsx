@@ -1,7 +1,7 @@
 import { COLORS } from '@/theme/colors';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Typography } from './Typography';
+import { Typography } from '../atoms/Typography';
 
 
 type Props = {

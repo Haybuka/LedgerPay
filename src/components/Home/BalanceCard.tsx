@@ -5,7 +5,7 @@ import { formatCurrency } from '@/utils/currencyFormatter'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useContext } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
-import { AppTextStyle, Typography } from '../Typography'
+import { AppTextStyle, Typography } from '../../atoms/Typography'
 
 type Props = {
     account: string;
@@ -26,7 +26,7 @@ const BalanceCard = ({ account, balance }: Props) => {
 
         <View>
             <View style={styles.container}>
-                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} >{balanceVisible ? 'Wallet Balance' : 'Account Number'}</Typography>
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} >{context.hideBalance ?  'Account Number' : 'Wallet Balance'}</Typography>
                 <Pressable onPress={context.setHideBalance ? () => context.setHideBalance(!context.hideBalance) : undefined}>
                     <Ionicons
                         name={context.hideBalance ? 'eye-off' : 'eye'}

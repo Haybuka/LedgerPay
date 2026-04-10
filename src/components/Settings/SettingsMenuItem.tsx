@@ -2,7 +2,7 @@ import { COLORS } from '@/theme/colors'
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { AppTextStyle, Typography } from '../Typography'
+import { AppTextStyle, Typography } from '../../atoms/Typography'
 
 type Prop = {
     icon: React.ReactNode;

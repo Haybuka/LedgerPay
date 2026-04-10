@@ -1,5 +1,6 @@
-import Button from '@/components/Button';
-import { AppTextStyle, Typography } from '@/components/Typography';
+
+import Button from '@/atoms/Button';
+import { AppTextStyle, Typography } from '@/atoms/Typography';
 import { COLORS } from '@/theme/colors';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';

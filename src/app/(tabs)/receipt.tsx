@@ -1,10 +1,14 @@
+import { AppTextStyle, Typography } from '@/atoms/Typography';
 import { ContactType } from '@/components/Beneficiary';
-import Screen from '@/components/Screen';
-import { AppTextStyle, Typography } from '@/components/Typography';
+import Screen from '@/templates/Screen';
 import { COLORS } from '@/theme/colors';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
+
+import LedgerPayReceipt from '@/components/Receipt';
+import { useViewShotShare } from '@/hooks/useViewShotShare';
+import * as Sharing from 'expo-sharing';
 // import { ContactType } from '.';
 
 const imgUrl = require('../../assets/images/success.png');
@@ -13,6 +17,39 @@ const Receipt = () => {
   const router = useRouter();
 
   const { item } = useLocalSearchParams<{ item?: string }>();
+
+  const [shareReceipt, setShareReceipt] = useState(false);
+
+  const { ref: viewShotRef, captureAndShare } = useViewShotShare();
+  const shareFile = async (uri: string) => {
+    try {
+      const canShare = await Sharing.isAvailableAsync();
+      if (!canShare) {
+        console.log('Sharing is not available on this platform');
+        return;
+      }
+      await Sharing.shareAsync(uri);
+    } catch (error) {
+      console.error('Error sharing file:', error);
+    }
+  };
+
+  const handleShare = () => {
+    setShareReceipt(true);
+
+    setTimeout(async () => {
+      try {
+        const uriVal = await captureAndShare();
+        if (uriVal) {
+          shareFile(uriVal)
+        }
+      } catch (e) {
+
+      } finally {
+        setShareReceipt(false);
+      }
+    }, 300);
+  };
 
   const parsedItem: ContactType | null = React.useMemo(() => {
     try {
@@ -23,9 +60,12 @@ const Receipt = () => {
   }, [item]);
 
   const handleDone = () => {
-    router.replace('/(home)'); // go back to home or dashboard
+    router.replace('/(tabs)/home'); // go back to home or dashboard
   };
 
+  const handleShareReceipt = () => {
+
+  };
   return (
     <Screen>
       <View style={styles.container}>
@@ -37,7 +77,7 @@ const Receipt = () => {
           textstyle={AppTextStyle.bodyMedium}
           color={COLORS.ledgerBlue}
         >
-          Transfer Successful 🎉
+          Transfer Successful 
         </Typography>
 
         {/* Subtitle */}
@@ -67,14 +107,22 @@ const Receipt = () => {
             Done
           </Typography>
         </Pressable>
+        <Pressable style={styles.buttonOutline} onPress={handleShare}>
+          <Typography
+            textstyle={AppTextStyle.bodyMedium}
+            color={COLORS.ledgerBlue}
+          >
+            Share Receipt
+          </Typography>
+        </Pressable>
       </View>
+      {shareReceipt && <LedgerPayReceipt ref={viewShotRef} />}
     </Screen>
   );
 };
 
 export default Receipt;
 
-/* ---------- Reusable Row ---------- */
 const Row = ({ label, value }: { label: string; value: string }) => (
   <View style={styles.row}>
     <Typography textstyle={AppTextStyle.bodySmall} color={COLORS.grey400}>
@@ -123,5 +171,15 @@ const styles = StyleSheet.create({
     padding: 14,
     borderRadius: 10,
     alignItems: 'center',
+  },
+  buttonOutline: {
+    width: '100%',
+    backgroundColor: COLORS.white,
+    padding: 14,
+    borderRadius: 10,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.ledgerBlue,
+    marginVertical: 16
   },
 });

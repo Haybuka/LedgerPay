@@ -5,8 +5,8 @@ import { FlatList, Pressable, StyleSheet, View } from 'react-native'
 import { COLORS } from "@/theme/colors"
 import { TransactionItemType } from '@/types/transactionTypes'
 import { transactionsData } from '@/utils/appData'
+import { AppTextStyle, Typography } from '../../atoms/Typography'
 import TransactionItem from '../transaction/TransactionItem'
-import { AppTextStyle, Typography } from '../Typography'
 
 
 const RecentTransaction = () => {

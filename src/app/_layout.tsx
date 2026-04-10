@@ -32,9 +32,9 @@ import 'react-native-reanimated';
 //   );
 // }
 
-import NetworkBanner from '@/components/AanimatedBanner';
 import { AppProvider } from '@/providers/AppContext';
 import { NetworkProvider } from '@/providers/NetworkContext';
+import NetworkBanner from '@/templates/AnimatedBanner';
 import { COLORS } from '@/theme/colors';
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from 'expo-font';
@@ -61,10 +61,10 @@ export default function TabLayout() {
     const iconSize = 28;
     return (
         <GestureHandlerRootView style={{ flex: 1, backgroundColor: COLORS.white }}>
-            <NetworkProvider>
-                <NetworkBanner />
-                <AppProvider>
-                    <ThemeProvider value={DefaultTheme}>
+            <ThemeProvider value={DefaultTheme}>
+                <NetworkProvider>
+                    <NetworkBanner />
+                    <AppProvider>
                         <SafeAreaProvider>
                             <SafeAreaView style={{ flex: 1 }}>
                                 <Tabs
@@ -94,7 +94,7 @@ export default function TabLayout() {
                                     }}
                                 >
                                     <Tabs.Screen
-                                        name='(home)'
+                                        name='(tabs)'
 
                                         options={{
                                             tabBarIcon: ({ color, size }) => (
@@ -124,9 +124,9 @@ export default function TabLayout() {
                             </SafeAreaView>
                         </SafeAreaProvider>
 
-                    </ThemeProvider>
-                </AppProvider>
-            </NetworkProvider>
+                    </AppProvider>
+                </NetworkProvider>
+            </ThemeProvider>
         </GestureHandlerRootView>
     );
 }
