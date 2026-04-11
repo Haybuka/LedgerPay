@@ -1,18 +1,18 @@
 
-import Button from '@/atoms/Button'
-import { AppTextStyle, Typography } from '@/atoms/Typography'
+import { AvatarBase, Button } from '@/atoms'
+import Typography, { AppTextStyle } from '@/atoms/Typography'
 import SettingsMenuItem from '@/components/Settings/SettingsMenuItem'
-import SwitchOption from '@/molecules/Switch'
-import Header from '@/organisms/CustomHeader'
+import { SwitchOption } from '@/molecules'
+import { Header } from '@/organisms'
 import { AppContext } from '@/providers/AppContext'
-import Screen from '@/templates/Screen'
+import { Screen } from '@/templates'
 import { COLORS } from '@/theme/colors'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useContext, useState } from 'react'
 import { Alert, SectionList, StyleSheet, View } from 'react-native'
 
 const Settings = () => {
-  
+
   const [pushNotification, setPushNotification] = useState(false);
   const context = useContext(AppContext);
 
@@ -37,6 +37,7 @@ const Settings = () => {
       { cancelable: true }
     );
   };
+
   const sections = [
     {
       title: 'Preferences',
@@ -96,28 +97,12 @@ const Settings = () => {
     <Screen>
       <Header title='Settings' showIconLeft={true} />
 
-
-      {/* - make a build.
-    - send apk to google drive.
-    - test for ios
-    - confirm prebuild vs dev client. */}
-
-
-      <View style={style.avatar}>
-        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading3}>PC</Typography>
-      </View>
-
-      <View style={{ marginVertical: 14 }}>
-        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLargeBold} textAlign='center'>
-          Chukwu Paschal
-        </Typography>
-        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center' style={{ marginVertical: 4 }}>
-          Chukwu.Paschal@interswitch.com
-        </Typography>
-        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center'>
-          081 664 49354
-        </Typography>
-      </View>
+      {/* 
+      - make a build.
+      - send apk to google drive.
+      - test for ios
+      - confirm prebuild vs dev client. 
+      */}
 
 
       <SectionList
@@ -153,17 +138,42 @@ const Settings = () => {
         }}
         contentContainerStyle={{ paddingBottom: 20 }}
         showsVerticalScrollIndicator={false}
+        ListHeaderComponent={() => {
+          return (
+            <View style={{alignItems : 'center'}}>
+              <AvatarBase size={150} background={COLORS.grey100}>
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading3}>PC</Typography>
+              </AvatarBase>
+              <View style={{ marginVertical: 14 }}>
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLargeBold} textAlign='center'>
+                  Chukwu Paschal
+                </Typography>
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center' style={{ marginVertical: 4 }}>
+                  Chukwu.Paschal@interswitch.com
+                </Typography>
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center'>
+                  081 664 49354
+                </Typography>
+              </View>
+            </View>
+          )
+        }}
+        ListFooterComponent={() => {
+          return (
+            <View style={style.logout}>
+              <Button
+                label='Log out'
+                bgColor={COLORS.oxblood}
+                onPress={handleLogout}
+                icon={<Ionicons name='log-out' size={24} color={COLORS.white} />}
+              />
+            </View>
+          )
+        }}
       />
 
 
-      <View style={style.logout}>
-        <Button
-          label='Log out'
-          bgColor={COLORS.oxblood}
-          onPress={handleLogout}
-          icon={<Ionicons name='log-out' size={24} color={COLORS.white} />}
-        />
-      </View>
+
     </Screen>
   )
 }

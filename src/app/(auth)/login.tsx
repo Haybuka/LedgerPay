@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 const LoginScreen = () => {
   return (
     <View>
-      <Text>LoginScreen</Text>
+      <Text>Login Screen</Text>
     </View>
   )
 }

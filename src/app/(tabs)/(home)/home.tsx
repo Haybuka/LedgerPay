@@ -1,10 +1,8 @@
-import BalanceCard from "@/components/Home/BalanceCard";
-import CtaSection from "@/components/Home/CtaSection";
-import Greetings from "@/components/Home/Greetings";
-import RecentTransaction from "@/components/Home/RecentTransaction";
+
+import { BalanceCard, CtaSection, Greetings, RecentTransaction } from "@/components/Home";
 import { useBiometricAuth } from "@/hooks/useBiometric";
 import { AppContext } from "@/providers/AppContext";
-import Screen from "@/templates/Screen";
+import { Screen } from "@/templates";
 import { UserProfileType } from "@/types/userType";
 import { userProfile } from "@/utils/constants";
 import React, { useContext, useState } from "react";

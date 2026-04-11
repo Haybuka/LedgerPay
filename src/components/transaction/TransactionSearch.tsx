@@ -1,3 +1,4 @@
+import { LedgerInput } from '@/atoms';
 import React, { useRef } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import * as SVG from '../../assets/icons';
@@ -11,26 +12,24 @@ const TransactionSearch = ({ search, handleSearch }: Prop) => {
     const inputRef = useRef<TextInput>(null);
     const onSearchIconPress = () => {
         if (inputRef.current) {
-            inputRef.current.focus(); // focus the input when search icon is pressed
+            inputRef.current.focus();
         }
     };
 
 
     return (
-        <View style={{ position: 'relative', justifyContent: 'center' }}>
-            <TextInput
+        <View style={{ position: 'relative', justifyContent: 'center', }}>
+            <LedgerInput
                 ref={inputRef}
                 placeholder="Search by name, bank, or account number"
                 value={search}
-                onChangeText={(text) => handleSearch(text)}
+                onChangeText={handleSearch}
                 style={{
                     backgroundColor: '#F6F8FA',
-                    borderRadius: 10,
-                    paddingHorizontal: 12,
-                    paddingRight: 40, 
-                    paddingVertical: 10,
+                    height: 44
                 }}
             />
+
 
             <Pressable
                 onPress={onSearchIconPress}

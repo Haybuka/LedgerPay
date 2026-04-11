@@ -1,7 +1,8 @@
+import { Typography } from '@/atoms';
 import { COLORS } from '@/theme/colors';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Typography } from '../atoms/Typography';
+
 
 
 type Props = {
@@ -26,7 +27,6 @@ export default CtaButton;
 const styles = StyleSheet.create({
     btnContainer: {
         flexDirection: 'row',
-        // backgroundColor: '#0072CE',
         gap: 10,
         paddingHorizontal: 12,
         paddingVertical: 12,

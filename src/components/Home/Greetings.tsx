@@ -1,7 +1,8 @@
+import { AvatarBase } from '@/atoms'
+import Typography, { AppTextStyle } from '@/atoms/Typography'
 import { COLORS } from '@/theme/colors'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { AppTextStyle, Typography } from '../../atoms/Typography'
 
 type Prop = {
     firstName: string;
@@ -10,12 +11,14 @@ type Prop = {
 const Greetings = ({ firstName, lastName }: Prop) => {
     return (
         <View style={styles.bioContainer}>
-            <View style={styles.avatar}>
+            <AvatarBase >
                 <Typography
                     color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLarge}
-                > {firstName.charAt(0).toUpperCase()}
+                > 
+                {firstName.charAt(0).toUpperCase()}
                     {lastName.charAt(0).toUpperCase()}</Typography>
-            </View>
+            </AvatarBase>
+
             <View>
                 <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium}>Good evening, </Typography>
                 <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading8}>{firstName} {lastName}</Typography>

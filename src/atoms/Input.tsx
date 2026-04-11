@@ -1,36 +1,28 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { StyleSheet, TextInput, TextInputProps } from 'react-native';
 
-type LedgerInputProps = {
-    value: string;
-    onChange: (text: string) => void;
-    inputProps?: TextInputProps;
-};
+type LedgerInputProps = TextInputProps;
 
-const LedgerInput: React.FC<LedgerInputProps> = ({
-    value, onChange, inputProps
-}) => {
+const LedgerInput = forwardRef<TextInput, LedgerInputProps>(
+  ({ style, ...props }, ref) => {
     return (
-
-        <TextInput
-            value={value}
-            onChangeText={onChange}
-            style={styles.input}
-            {...inputProps}
-        />
-
+      <TextInput
+        ref={ref}
+        style={[styles.input, style]}
+        {...props}
+      />
     );
-};
+  }
+);
 
 export default LedgerInput;
 
 const styles = StyleSheet.create({
-    input: {
-
-        borderRadius: 10,
-        paddingHorizontal: 12,
-        paddingRight: 40, // space for the icon
-        paddingVertical: 10,
-        flex: 1,
-    },
+  input: {
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingRight: 40,
+    paddingVertical: 10,
+    flex : 1
+  },
 });

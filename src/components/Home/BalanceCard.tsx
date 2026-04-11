@@ -1,3 +1,4 @@
+import Typography, { AppTextStyle } from '@/atoms/Typography'
 import { AppContext } from '@/providers/AppContext'
 import { COLORS } from '@/theme/colors'
 import { copyToClipboard } from '@/utils/copyToClip'
@@ -5,7 +6,6 @@ import { formatCurrency } from '@/utils/currencyFormatter'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useContext } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
-import { AppTextStyle, Typography } from '../../atoms/Typography'
 
 type Props = {
     account: string;

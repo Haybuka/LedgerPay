@@ -1,12 +1,8 @@
-import { Typography } from '@/atoms/Typography'
-import TransactionItem from '@/components/transaction/TransactionItem'
-import TransactionSearch from '@/components/transaction/TransactionSearch'
-import TransactionSheetUi from '@/components/transaction/TransactionSheetUi'
-import TransactionTabPill from '@/components/transaction/TransactionTabPill'
-import Header from '@/organisms/CustomHeader'
-import BottomSheetUsage from '@/organisms/SheetModal'
+import { Typography } from '@/atoms'
+import { TransactionItem, TransactionSearch, TransactionSheetUi, TransactionTabPill } from '@/components/transaction'
+import { BottomSheetUsage, Header } from '@/organisms'
 import { NetworkContext } from '@/providers/NetworkContext'
-import Screen from '@/templates/Screen'
+import { Screen } from '@/templates'
 import { TransactionItemType } from '@/types/transactionTypes'
 import { transactionsData } from '@/utils/appData'
 import BottomSheet from '@gorhom/bottom-sheet'
@@ -14,7 +10,6 @@ import React, { useContext, useRef, useState } from 'react'
 import { ActivityIndicator, Alert, FlatList, View } from 'react-native'
 
 export type TabType = 'all' | 'credit' | 'debit';
-
 const tabs: TabType[] = ['all', 'credit', 'debit'];
 
 const Transaction = () => {
@@ -89,9 +84,10 @@ const Transaction = () => {
                     updateSelectedTab={updateTabSelect}
                 />
             </View>
-            {isLoading ? (<View style={{flex : 1,  justifyContent : 'center'}}>
-                <ActivityIndicator size={'large'} />
-            </View>) : (
+            {isLoading ? (
+                <View style={{ flex: 1, justifyContent: 'center' }}>
+                  <ActivityIndicator size={'large'} />
+                </View>) : (
 
                 <>
 

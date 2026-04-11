@@ -1,22 +1,14 @@
-import React from 'react';
-// import * as SVG from 'assets/icons';
+import Typography, { AppTextStyle } from '@/atoms/Typography';
 import { COLORS } from '@/theme/colors';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { AppTextStyle, Typography } from '../../atoms/Typography';
 
 const SuccessTag = ({ text }: { text: string }) => {
-
   return (
     <View
       style={styles.container}
     >
-      <View style={styles.svgBox}>
-        {/* <SVG.BookingTickMark
-          width={16}
-          height={16}
-          color={theme.colors.greenPrimary}
-        /> */}
-      </View>
+     
       <Typography color={'light'} textstyle={AppTextStyle.bodyMedium}>
         {text}
       </Typography>

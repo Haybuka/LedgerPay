@@ -1,7 +1,7 @@
 import { COLORS } from '@/theme/colors';
 import React from 'react';
 import { StyleSheet, Switch, View } from 'react-native';
-import { AppTextStyle, Typography } from '../atoms/Typography';
+import Typography, { AppTextStyle } from '../atoms/Typography';
 
 
 // Define types for the props
@@ -15,8 +15,7 @@ type SwitchOptionProps = {
 const SwitchOption: React.FC<SwitchOptionProps> = ({ label, value, onToggle, icon }) => {
     return (
         <View style={styles.container}>
-            <View style={{flexDirection : 'row', gap : 8, alignItems : 'center', flex : 1}}>
-               
+            <View style={styles.iconContainer}> 
                 {icon}
                 <Typography textstyle={AppTextStyle.bodyLarge} >{label}</Typography >
             </View>
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500',
     },
+    iconContainer : {flexDirection : 'row', gap : 8, alignItems : 'center', flex : 1}
 });
 
 export default SwitchOption;

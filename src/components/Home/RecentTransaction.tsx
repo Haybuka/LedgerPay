@@ -1,13 +1,11 @@
-import { useRouter } from "expo-router"
-import React, { useState } from 'react'
-import { FlatList, Pressable, StyleSheet, View } from 'react-native'
-
+import Typography, { AppTextStyle } from "@/atoms/Typography"
 import { COLORS } from "@/theme/colors"
 import { TransactionItemType } from '@/types/transactionTypes'
 import { transactionsData } from '@/utils/appData'
-import { AppTextStyle, Typography } from '../../atoms/Typography'
-import TransactionItem from '../transaction/TransactionItem'
-
+import { useRouter } from "expo-router"
+import React, { useState } from 'react'
+import { FlatList, Pressable, StyleSheet, View } from 'react-native'
+import { TransactionItem } from "../transaction"
 
 const RecentTransaction = () => {
     const router = useRouter();

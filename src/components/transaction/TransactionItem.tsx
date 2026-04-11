@@ -1,11 +1,11 @@
-
+import Typography, { AppTextStyle } from '@/atoms/Typography';
+import { Avatar } from '@/molecules';
 import { COLORS } from '@/theme/colors';
 import { TransactionItemType } from '@/types/transactionTypes';
 import { formatCurrency } from '@/utils/currencyFormatter';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import * as SVG from '../../assets/icons';
-import { AppTextStyle, Typography } from '../../atoms/Typography';
 
 
 type Props = {
@@ -25,19 +25,19 @@ const TransactionItem: React.FC<Props> = ({ item, handleSelected }) => {
     const onButtonPress = () => {
         handleSelected(item);
     }
+
     return (
         <>
             <TouchableOpacity activeOpacity={0.4} style={styles.container} onPress={onButtonPress}>
                 <View style={styles.lhs}>
-                    <View
-                        style={styles.avatar}
-                    >
-                        <View
-                            style={[styles.icon, { backgroundColor: isDebit ? COLORS.oxblood : COLORS.green500 }]}
-                        >
-                            {iconMap[item.type]}
-                        </View>
-                    </View>
+
+                    <Avatar
+                        size={42}
+                        image=''
+                        containerBg={COLORS.grey50}
+                        icon={iconMap[item.type]}
+                        iconStyles={{ backgroundColor: isDebit ? COLORS.oxblood : COLORS.green500 }}
+                    />
 
                     <View>
                         <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMediumBold} >

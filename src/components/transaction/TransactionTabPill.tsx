@@ -1,8 +1,7 @@
-import { TabType } from '@/app/transaction';
-import { COLORS } from '@/theme/colors';
+import { TabType } from '@/app/(tabs)/transaction';
+import { Pill } from '@/molecules';
 import React from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
-import { Typography } from '../../atoms/Typography';
+import { StyleSheet, View } from 'react-native';
 
 
 type Props = {
@@ -18,22 +17,12 @@ const TransactionTabPill = ({ tabs, selectedTab, updateSelectedTab }: Props) => 
     return (
         <View style={{ flexDirection: 'row', gap: 20, marginTop: 20 }}>
             {tabs.map((tab) => (
-                <Pressable
+                <Pill
                     key={tab}
                     onPress={() => handleSelectedTab(tab)}
-                    style={{
-                        paddingVertical: 4,
-                        paddingHorizontal: 16,
-                        borderRadius: 10,
-                        backgroundColor: selectedTab === tab ? COLORS.ledgerBlue : COLORS.grey50,
-                        alignItems: 'center',
-                    }}
-                >
-
-                    <Typography color={selectedTab === tab ? COLORS.white : COLORS.white}>
-                        {tab?.charAt(0)?.toUpperCase() + tab?.slice(1)}
-                    </Typography>
-                </Pressable>
+                    isSelected={selectedTab === tab}
+                    value={tab}
+                />
             ))}
         </View>
     )

@@ -1,9 +1,9 @@
+import { CtaButton } from '@/molecules';
 import { COLORS } from '@/theme/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from "expo-router";
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import CtaButton from '../../molecules/CtaButton';
 
 
 const CtaSection = () => {

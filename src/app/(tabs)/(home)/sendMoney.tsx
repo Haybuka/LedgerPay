@@ -1,9 +1,8 @@
+import { Typography } from '@/atoms'
 import Button from '@/atoms/Button'
-import { Typography } from '@/atoms/Typography'
 import { ContactType } from '@/components/Beneficiary'
-import Header from '@/organisms/CustomHeader'
-import { FormInput } from '@/organisms/FormInput'
-import Screen from '@/templates/Screen'
+import { FormInput, Header } from '@/organisms'
+import { Screen } from '@/templates'
 import { COLORS } from '@/theme/colors'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import React, { useEffect, } from 'react'
@@ -56,7 +55,7 @@ const SendMoney = () => {
   const router = useRouter()
 
   const onSubmit = (data: FormData) => {
-    console.log(data,'data')
+    console.log(data, 'data')
     router.push({
       pathname: '/amountInput',
       params: {

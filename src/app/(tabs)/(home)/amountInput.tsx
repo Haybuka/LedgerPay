@@ -1,11 +1,11 @@
+import { Typography } from '@/atoms';
 import Button from '@/atoms/Button';
+import { AppTextStyle } from '@/atoms/Typography';
 import { ContactType } from '@/components/Beneficiary';
-import AmountDetails from '@/molecules/AmountDetails';
+import { AmountDetails } from '@/molecules';
+import { BottomSheetUsage, Header } from '@/organisms';
+import { Screen } from '@/templates';
 
-import { AppTextStyle, Typography } from '@/atoms/Typography';
-import Header from '@/organisms/CustomHeader';
-import BottomSheetUsage from '@/organisms/SheetModal';
-import Screen from '@/templates/Screen';
 import { COLORS } from '@/theme/colors';
 import { formatAmountUi } from '@/utils/currencyFormatter';
 import BottomSheet from '@gorhom/bottom-sheet';

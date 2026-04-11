@@ -1,5 +1,5 @@
-import { Typography } from '@/atoms/Typography'
-import LedgerInputLabel from '@/molecules/LedgerInputLabel'
+import { Typography } from '@/atoms'
+import { LedgerInputLabel } from '@/molecules'
 import { COLORS } from '@/theme/colors'
 import React from 'react'
 import { Control, Controller, FieldValues, Path } from 'react-hook-form'
@@ -12,7 +12,7 @@ type FormInputProps<T extends FieldValues> = {
     rules?: object
 } & TextInputProps
 
-export function FormInput<T extends FieldValues>({
+export default function FormInput<T extends FieldValues>({
     control,
     name,
     label,

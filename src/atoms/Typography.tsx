@@ -59,7 +59,7 @@ const styles: Record<AppTextStyle, StyleProp<TextStyle>> = {
     [AppTextStyle.bodyTinyMedium]: { fontSize: 11, fontWeight: '500', fontFamily: 'nunito-light' },
 };
 
-export const Typography = ({
+const Typography = ({
     textstyle = AppTextStyle.bodyMedium,
     style,
     color = 'grey900',
@@ -70,3 +70,6 @@ export const Typography = ({
         <Text style={[styles[textstyle], { color, textAlign, fontFamily: 'nunito-old' }, style]} {...props} />
     );
 };
+
+
+export default Typography
