@@ -1,12 +1,14 @@
 
 import React from 'react';
 
-import { AppTextStyle, Typography } from '@/atoms/Typography';
+import Typography, { AppTextStyle } from '@/atoms/Typography';
 import { COLORS } from '@/theme/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ContactType } from '.';
+import { ContactType } from './types';
+
+
 
 
 type BeneficiaryContactitemProp = {

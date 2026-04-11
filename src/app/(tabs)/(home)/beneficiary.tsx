@@ -1,4 +1,5 @@
-import BeneficiaryContactList from '@/components/Beneficiary'
+
+import { BeneficiaryContactList } from '@/components/Beneficiary'
 import { Header } from '@/organisms'
 import { Screen } from '@/templates'
 import { useNavigation } from 'expo-router'

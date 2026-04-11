@@ -1,7 +1,6 @@
-import { Typography } from '@/atoms';
 import Button from '@/atoms/Button';
-import { AppTextStyle } from '@/atoms/Typography';
-import { ContactType } from '@/components/Beneficiary';
+import Typography, { AppTextStyle } from '@/atoms/Typography';
+import { ContactType } from '@/components/Beneficiary/types';
 import { AmountDetails } from '@/molecules';
 import { BottomSheetUsage, Header } from '@/organisms';
 import { Screen } from '@/templates';

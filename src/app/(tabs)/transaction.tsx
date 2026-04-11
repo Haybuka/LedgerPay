@@ -75,7 +75,7 @@ const Transaction = () => {
         <Screen>
             <Header title='Transactions' showIconLeft={true} />
 
-            <View style={{ paddingVertical: 10, }}>
+            <View style={{ paddingVertical: 10,}}>
                 <TransactionSearch search={search} handleSearch={handledSearchChange} />
 
                 <TransactionTabPill

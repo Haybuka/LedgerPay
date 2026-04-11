@@ -4,6 +4,12 @@ export type UserProfileType = {
     avatar: string;
     email: string;
     phone: string;
-    accountNumber: string;
-    balance: number;
+    account: UserAccountType
+}
+
+export type UserAccountType = {
+    balance: number,
+    currency: string,
+    accountNumber: string
+
 }

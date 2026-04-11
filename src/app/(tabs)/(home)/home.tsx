@@ -40,7 +40,7 @@ export default function Home() {
 
       <Greetings firstName={user.firstName} lastName={user.lastName} />
       <View style={styles.banner}>
-        <BalanceCard account={user.accountNumber} balance={user.balance} />
+        <BalanceCard  account={user.account} />
         <CtaSection />
       </View>
       <RecentTransaction />

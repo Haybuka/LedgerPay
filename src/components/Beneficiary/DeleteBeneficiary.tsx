@@ -4,7 +4,7 @@ import Typography, { AppTextStyle } from '@/atoms/Typography';
 import { COLORS } from '@/theme/colors';
 import React from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { ContactType } from '.';
+import { ContactType } from './types';
 
 type DeleteMfbBeneficiaryProp = {
   beneficiary: ContactType;

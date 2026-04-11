@@ -181,24 +181,12 @@ const Settings = () => {
 export default Settings
 
 const style = StyleSheet.create({
-  avatar: {
-    height: 150,
-    width: 150,
-    borderRadius: 100,
-    marginHorizontal: 'auto',
-    marginVertical: 24,
-    backgroundColor: COLORS.grey100,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   sectionHeader: {
     marginTop: 20,
     marginBottom: 8,
     paddingHorizontal: 4
   },
   logout: {
-    justifyContent: 'center',
-    alignItems: 'center',
     marginVertical: 14
   }
 });

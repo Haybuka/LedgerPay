@@ -1,22 +1,25 @@
-import { Typography } from '@/atoms';
+import { AvatarBase, Typography } from '@/atoms';
 import { COLORS } from '@/theme/colors';
 import React from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 
 
 
 type Props = {
     label: string;
-    icon?: React.ReactNode;
+    icon: React.ReactElement;
     onPress?: () => void;
     bgColor?: string;
 }
-const CtaButton = ({ label, icon, onPress,bgColor }: Props) => {
+const CtaButton = ({ label, icon, onPress, bgColor }: Props) => {
     return (
-        <Pressable onPress={onPress}>
-            <View style={[styles.btnContainer, { backgroundColor: bgColor ? bgColor : COLORS.ledgerBlue }]}>
+        <Pressable onPress={onPress} style={{gap:6}}>
+            {/* <View style={[styles.btnContainer, { backgroundColor: bgColor ? bgColor : COLORS.ledgerBlue }]}>
                 {icon}
-            </View>
+            </View> */}
+            <AvatarBase size={50} background={bgColor ? bgColor : COLORS.ledgerBlue}>
+                {icon}
+            </AvatarBase>
             <Typography textAlign='center' color={COLORS.ledgerBlue}>{label} </Typography>
         </Pressable>
     )

@@ -1,7 +1,7 @@
 import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
 import React, { forwardRef, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { AppTextStyle, Typography } from '../atoms/Typography';
+import Typography, { AppTextStyle, } from '../atoms/Typography';
 
 
 
@@ -20,7 +20,7 @@ const renderBackdrop = (props: any) => (
 );
 
 const BottomSheetUsage = forwardRef<BottomSheet, Props>(({  children,onChange }, ref) => {
-    const snapPoints = useMemo(() => ['40%', '60%'], []);
+    const snapPoints = useMemo(() => ['100%'], []);
 
     return (
         <BottomSheet onChange={onChange} backdropComponent={renderBackdrop} ref={ref} index={-1} snapPoints={snapPoints} enablePanDownToClose={true} backgroundStyle={{ borderRadius: 20, padding: 20 }} handleIndicatorStyle={{ backgroundColor: '#ccc', width: 40, height: 5, marginBottom: 10 }} >

@@ -1,13 +1,13 @@
-import { Typography } from '@/atoms'
-import Button from '@/atoms/Button'
-import { ContactType } from '@/components/Beneficiary'
+
+import { Button, Typography } from '@/atoms'
+import { ContactType } from '@/components/Beneficiary/types'
 import { FormInput, Header } from '@/organisms'
 import { Screen } from '@/templates'
 import { COLORS } from '@/theme/colors'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import React, { useEffect, } from 'react'
 import { useForm } from 'react-hook-form'
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native'
+import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native'
 
 type SendMoneyParams = {
   item?: string;
@@ -55,7 +55,7 @@ const SendMoney = () => {
   const router = useRouter()
 
   const onSubmit = (data: FormData) => {
-    console.log(data, 'data')
+
     router.push({
       pathname: '/amountInput',
       params: {
@@ -136,20 +136,3 @@ const SendMoney = () => {
 
 export default SendMoney
 
-const styles = StyleSheet.create({
-  inputContainer: {
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: COLORS.grey50,
-    borderRadius: 14,
-    marginBottom: 14
-  },
-  inputInner: {
-    position: "relative",
-    justifyContent: "center",
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6
-  },
-})
