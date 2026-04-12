@@ -1,5 +1,5 @@
 import Typography, { AppTextStyle } from '@/atoms/Typography';
-import { ContactType } from '@/components/Beneficiary';
+import { ContactType } from '@/components/Beneficiary/types';
 import { LedgerPayReceipt } from '@/components/Receipt';
 import { useViewShotShare } from '@/hooks/useViewShotShare';
 import { Screen } from '@/templates';
@@ -9,8 +9,20 @@ import * as Sharing from 'expo-sharing';
 import React, { useState } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 
-// const imgUrl = require('../../assets/images/success.png');
 const imgUrl = require('../../../assets/images/success.png');
+
+
+export const sampleTransaction = {
+  id: 'TXN_20260411_001',
+  type: 'debit' as 'debit' | 'credit', // or 'credit'
+  amount: 5000,
+  bank: 'GTBank',
+  recipientName: 'Abdullahi Abdul',
+  recipientAcct: '325436547',
+  sessionId: 'SID_98765432123456789',
+  transRef: 'REF_12345678909876543',
+  dateCreated: '2026-04-11T21:15:40Z',
+};
 
 const Receipt = () => {
   const router = useRouter();
@@ -59,7 +71,7 @@ const Receipt = () => {
   }, [item]);
 
   const handleDone = () => {
-    // router.replace('/(tabs)/home'); // go back to home or dashboard
+    router.replace('/home'); 
   };
 
   const handleShareReceipt = () => {
@@ -115,7 +127,7 @@ const Receipt = () => {
           </Typography>
         </Pressable>
       </View>
-      {shareReceipt && <LedgerPayReceipt ref={viewShotRef} />}
+      {shareReceipt && <LedgerPayReceipt ref={viewShotRef} data={sampleTransaction} />}
     </Screen>
   );
 };

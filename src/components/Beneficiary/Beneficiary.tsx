@@ -167,7 +167,6 @@ const BeneficiaryContactList = () => {
 
 
 
-
             </View>
             <BottomSheetUsage ref={sheetRef}>
                 {selectedBeneficiary.id && (
@@ -177,6 +176,8 @@ const BeneficiaryContactList = () => {
         </>
     );
 };
+
+
 
 export default BeneficiaryContactList;
 
