@@ -4,7 +4,7 @@ import NetworkBanner from '@/templates/AnimatedBanner';
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { View } from "react-native";
+import { View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
@@ -21,14 +21,16 @@ export default function TabLayout() {
                 <SafeAreaProvider>
                     <SafeAreaView style={{ flex: 1 }}>
                         <Tabs
-
+                            detachInactiveScreens
                             screenOptions={{
+
                                 headerShown: false,
                                 tabBarShowLabel: false,
                                 tabBarActiveTintColor: "#1E293B",
                                 tabBarBackground: () => <View style={{ height: 200, flex: 1 }}></View>,
+
                                 tabBarStyle: {
-                                    bottom: 20,
+                                    bottom: 14,
                                     alignSelf: "center",
                                     width: tabBarWidth,
                                     height: iconSize + 16,
@@ -36,12 +38,14 @@ export default function TabLayout() {
                                     borderRadius: 30,
                                     flexDirection: "row",
                                     paddingHorizontal: 0,
+                                    marginHorizontal: 10
                                 },
                                 tabBarItemStyle: {
                                     width: tabWidth,
                                     justifyContent: "center",
                                     alignItems: "center",
                                 },
+
                             }}
                         >
                             <Tabs.Screen
@@ -76,6 +80,6 @@ export default function TabLayout() {
                 </SafeAreaProvider>
 
             </AppProvider>
-        </NetworkProvider>
+        </NetworkProvider >
     );
 }

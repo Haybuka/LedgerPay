@@ -10,7 +10,7 @@ import { TransactionItemType } from "@/types/transactionTypes";
 import { UserProfileType } from "@/types/userType";
 import { transactionsData } from "@/utils/appData";
 import { userProfile } from "@/utils/constants";
-import { useRouter } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 import React, { useContext, useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -34,7 +34,9 @@ export default function Home() {
   }
 
   const { isAuthenticated, isLoading, error } = useBiometricAuth(biometricEnabled);
+  const navigation = useNavigation();
 
+  console.log(navigation.getState());
   if (biometricEnabled && isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

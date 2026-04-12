@@ -6,10 +6,11 @@ export default function HomeLayout() {
 
     return (
         <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="home" options={{ headerShown: false }} />
-            <Stack.Screen name="beneficiary" options={{ headerShown: false }} />
-            <Stack.Screen name="sendMoney" options={{ headerShown: false }} />
-
+            <Stack.Screen name="home"  />
+            <Stack.Screen name="beneficiary"  />
+            <Stack.Screen name="sendMoney"  />
+            <Stack.Screen name="receipt"  />
+            <Stack.Screen name="amountInput"  />
         </Stack>
     );
 }

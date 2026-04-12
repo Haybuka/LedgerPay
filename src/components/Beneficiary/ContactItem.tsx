@@ -23,7 +23,7 @@ const BeneficiaryContactitem = ({ deleteItem = true, index, item, handleItemSele
     const router = useRouter()
     const handleNextScreen = () => {
         router.push({
-            pathname: '/sendMoney',
+            pathname: '/(tabs)/(home)/sendMoney',
             params: {
                 item: JSON.stringify(item)
             },

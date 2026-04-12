@@ -65,7 +65,7 @@ const AmountInput = () => {
         setIsSheetOpen(true)
     }
     const handleShowReceipt = () => {
-        router.push('/receipt');
+        router.push('/(tabs)/(home)/receipt');
     }
     const handleClose = () => {
         if (sheetRef.current && isSheetOpen) {

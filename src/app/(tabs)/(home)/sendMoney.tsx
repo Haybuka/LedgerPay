@@ -57,7 +57,7 @@ const SendMoney = () => {
   const onSubmit = (data: FormData) => {
 
     router.push({
-      pathname: '/amountInput',
+      pathname: '/(tabs)/(home)/amountInput',
       params: {
         recipient: JSON.stringify(data)
       },
