@@ -1,10 +1,11 @@
+
 import { Typography } from '@/atoms'
 import { TransactionItem, TransactionSearch, TransactionSheetUi, TransactionTabPill } from '@/components/transaction'
+import { useGetAllTransactions } from '@/hooks/useGetAllTransactions'
 import { BottomSheetUsage, Header } from '@/organisms'
 import { NetworkContext } from '@/providers/NetworkContext'
 import { Screen } from '@/templates'
 import { TransactionItemType } from '@/types/transactionTypes'
-import { transactionsData } from '@/utils/appData'
 import BottomSheet from '@gorhom/bottom-sheet'
 import React, { useContext, useRef, useState } from 'react'
 import { ActivityIndicator, Alert, FlatList, View } from 'react-native'
@@ -13,13 +14,16 @@ export type TabType = 'all' | 'credit' | 'debit';
 const tabs: TabType[] = ['all', 'credit', 'debit'];
 
 const Transaction = () => {
-    const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
+    // const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
     const [search, setSearch] = useState('');
     const [selectedTab, setSelectedTab] = useState<'all' | 'debit' | 'credit'>('all');
     const [isLoading, setIsLoading] = useState(false);
     const sheetRef = useRef<BottomSheet>(null);
     const [selectedItem, setSelectedItem] = useState<TransactionItemType>({} as TransactionItemType);
 
+    const { transactions, loading } = useGetAllTransactions();
+
+    console.log({ loading })
     const updateTabSelect = (item: TabType) => {
         setSelectedTab(item)
     }
@@ -47,7 +51,7 @@ const Transaction = () => {
     }
 
 
-    const filteredTransactions = transactions.filter((item) => {
+    const filteredTransactions = transactions?.filter((item) => {
 
 
         const query = search.toLowerCase();
@@ -75,7 +79,7 @@ const Transaction = () => {
         <Screen>
             <Header title='Transactions' showIconLeft={true} />
 
-            <View style={{ paddingVertical: 10,}}>
+            <View style={{ paddingVertical: 10, }}>
                 <TransactionSearch search={search} handleSearch={handledSearchChange} />
 
                 <TransactionTabPill
@@ -86,7 +90,7 @@ const Transaction = () => {
             </View>
             {isLoading ? (
                 <View style={{ flex: 1, justifyContent: 'center' }}>
-                  <ActivityIndicator size={'large'} />
+                    <ActivityIndicator size={'large'} />
                 </View>) : (
 
                 <>

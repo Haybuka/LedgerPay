@@ -13,7 +13,7 @@ const Greetings = ({ firstName, lastName }: Prop) => {
         <View style={styles.bioContainer}>
             <AvatarBase >
                 <Typography
-                    color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLarge}
+                    color={COLORS.white} textstyle={AppTextStyle.heading8}
                 > 
                 {firstName.charAt(0).toUpperCase()}
                     {lastName.charAt(0).toUpperCase()}</Typography>

@@ -18,19 +18,20 @@ const TransactionSearch = ({ search, handleSearch }: Prop) => {
 
 
     return (
-        <View style={{ position: 'relative', justifyContent: 'center' }}>
+        <View style={{ position: 'relative', justifyContent: 'center',backgroundColor: '#F6F8FA',padding:10, borderRadius: 10, }}>
             <LedgerInput
                 ref={inputRef}
                 placeholder="Search by name, bank, or account number"
                 value={search}
                 onChangeText={handleSearch}
                 style={{
-                    backgroundColor: '#F6F8FA',
+                  
                     borderRadius: 10,
                     paddingHorizontal: 12,
                     paddingRight: 40, // space for the icon
                     paddingVertical: 10,
                     flex: 1,
+                    height: 300
                 }}
             />
 

@@ -66,6 +66,18 @@ const Settings = () => {
       ]
     },
     {
+      title: 'Appearance',
+      data: [
+        {
+          type: 'menu',
+          label: 'Mode',
+          value: false,
+          onToggle: () => { },
+          icon: <Ionicons name='sunny-sharp' size={24} color={COLORS.ledgerBlue} />
+        }
+      ]
+    },
+    {
       title: 'Security & Legal',
       data: [
         {

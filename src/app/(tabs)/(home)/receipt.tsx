@@ -71,7 +71,7 @@ const Receipt = () => {
   }, [item]);
 
   const handleDone = () => {
-    router.replace('/(tabs)/(home)/home'); 
+    router.replace('/home'); 
   };
 
   const handleShareReceipt = () => {

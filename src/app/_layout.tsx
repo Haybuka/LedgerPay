@@ -34,7 +34,7 @@ import 'react-native-reanimated';
 
 import { COLORS } from '@/theme/colors';
 import { useFonts } from 'expo-font';
-import { Slot } from 'expo-router';
+import { Stack } from 'expo-router';
 import React from 'react';
 import { useWindowDimensions } from "react-native";
 
@@ -57,7 +57,7 @@ export default function TabLayout() {
     return (
         <GestureHandlerRootView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <ThemeProvider value={DefaultTheme}>
-                <Slot />
+                <Stack screenOptions={{ headerShown: false }} />
             </ThemeProvider>
         </GestureHandlerRootView>
     );
