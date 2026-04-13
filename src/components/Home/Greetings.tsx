@@ -8,15 +8,15 @@ type Prop = {
     firstName: string;
     lastName: string
 }
-const Greetings = ({ firstName, lastName }: Prop) => {
+const Greetings = ({ firstName = 'Hi', lastName = 'there' }: Prop) => {
     return (
         <View style={styles.bioContainer}>
             <AvatarBase >
                 <Typography
                     color={COLORS.white} textstyle={AppTextStyle.heading8}
-                > 
-                {firstName.charAt(0).toUpperCase()}
-                    {lastName.charAt(0).toUpperCase()}</Typography>
+                >
+                    {firstName?.charAt(0)?.toUpperCase()}
+                    {lastName?.charAt(0)?.toUpperCase()}</Typography>
             </AvatarBase>
 
             <View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         width: 40,
         backgroundColor: COLORS.grey50,
         borderRadius: 20,
-        justifyContent : 'center',
-        alignItems : 'center'   
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 })

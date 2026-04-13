@@ -1,16 +1,17 @@
-import { getAllTransactions } from "@/api/transaction/transactions";
-import { TransactionItemType } from "@/api/transaction/types";
+
+import { UserProfileType } from "@/api/user/types";
+import { getUser } from "@/api/user/user";
 import { useCallback, useEffect, useState } from "react";
 
-export const useGetAllTransactions = () => {
-  const [transactions, setTransaction] = useState<TransactionItemType[]>([] as TransactionItemType[]);
+export const useGetUser = () => {
+  const [user, setUser] = useState<UserProfileType>({} as UserProfileType);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   const fetchData = useCallback(async () => {
     try {
-      const result = await getAllTransactions();
-      setTransaction(result);
+      const result = await getUser();
+      setUser(result);
     } catch (err) {
       console.error(err);
     }
@@ -29,5 +30,5 @@ export const useGetAllTransactions = () => {
     setRefreshing(false);
   };
 
-  return { transactions, loading, refreshing, refetch };
+  return { user, loading, refreshing, refetch };
 };

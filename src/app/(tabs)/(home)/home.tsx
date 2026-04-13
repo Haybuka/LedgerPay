@@ -1,42 +1,40 @@
 
+import { TransactionItemType } from "@/api/transaction/types";
 import Typography, { AppTextStyle } from "@/atoms/Typography";
 import { BalanceCard, CtaSection, Greetings } from "@/components/Home";
 import { TransactionItem } from "@/components/transaction";
 import { useBiometricAuth } from "@/hooks/useBiometric";
+import { useGetAllTransactions } from "@/hooks/useGetAllTransactions";
+import { useGetUser } from "@/hooks/useGetUser";
 import { AppContext } from "@/providers/AppContext";
 import { Screen } from "@/templates";
 import { COLORS } from "@/theme/colors";
-import { TransactionItemType } from "@/types/transactionTypes";
-import { UserProfileType } from "@/types/userType";
-import { transactionsData } from "@/utils/appData";
-import { userProfile } from "@/utils/constants";
 import { useNavigation, useRouter } from "expo-router";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 
 
 export default function Home() {
 
-  const [user, setUser] = useState<UserProfileType>(userProfile);
-
-
+  // const [user, setUser] = useState<UserProfileType>(userProfile);
   const { biometricEnabled } = useContext(AppContext)
-
   const router = useRouter();
-  const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
-
   const handleNavigate = () => {
     router.push('/transaction');
   }
 
   const handleSelectedItem = (item: TransactionItemType) => {
-
+    console.log(item, "selected item")
   }
 
   const { isAuthenticated, isLoading, error } = useBiometricAuth(biometricEnabled);
   const navigation = useNavigation();
 
-  console.log(navigation.getState());
+  const { transactions, loading : loadingTransactions, refreshing : isRefreshingTransaction, refetch } = useGetAllTransactions();
+  const { user, loading : loadingUser, refreshing:isRefreshingUser, refetch:refetchUser } = useGetUser();
+
+  const isFetching = isRefreshingUser || isRefreshingTransaction;
+
   if (biometricEnabled && isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -52,6 +50,8 @@ export default function Home() {
       </View>
     );
   }
+
+console.log(user.account)
   return (
 
     <Screen>
@@ -60,7 +60,7 @@ export default function Home() {
         contentContainerStyle={{ marginBottom: 10 }}
         ListHeaderComponent={() => (
           <>
-            <Greetings firstName={user.firstName} lastName={user.lastName} />
+            <Greetings firstName={user?.firstName} lastName={user?.lastName} />
             <View style={styles.banner}>
               <BalanceCard account={user.account} />
               <CtaSection />
@@ -74,6 +74,8 @@ export default function Home() {
           </>
         )}
         initialNumToRender={3}
+        refreshing={isFetching}
+        onRefresh={refetch}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <TransactionItem item={item} handleSelected={handleSelectedItem} />}

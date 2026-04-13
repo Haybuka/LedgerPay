@@ -14,16 +14,16 @@ export type TabType = 'all' | 'credit' | 'debit';
 const tabs: TabType[] = ['all', 'credit', 'debit'];
 
 const Transaction = () => {
-    // const [transactions, setTransactions] = useState<TransactionItemType[]>(transactionsData as TransactionItemType[])
+
     const [search, setSearch] = useState('');
     const [selectedTab, setSelectedTab] = useState<'all' | 'debit' | 'credit'>('all');
     const [isLoading, setIsLoading] = useState(false);
     const sheetRef = useRef<BottomSheet>(null);
     const [selectedItem, setSelectedItem] = useState<TransactionItemType>({} as TransactionItemType);
 
-    const { transactions, loading } = useGetAllTransactions();
+    const { transactions, loading,refreshing,refetch } = useGetAllTransactions();
 
-    console.log({ loading })
+    
     const updateTabSelect = (item: TabType) => {
         setSelectedTab(item)
     }
@@ -101,8 +101,8 @@ const Transaction = () => {
                         initialNumToRender={5}
                         showsVerticalScrollIndicator={false}
                         keyExtractor={(item) => item.id.toString()}
-                        refreshing={isLoading}
-                        onRefresh={onRefresh}
+                        refreshing={refreshing}
+                        onRefresh={refetch}
                         renderItem={({ item }) => <TransactionItem item={item} handleSelected={handleSelectedItem} />}
                         ListEmptyComponent={() => (
                             <View style={{ padding: 20, alignItems: 'center', }}>

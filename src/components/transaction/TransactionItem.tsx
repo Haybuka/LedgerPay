@@ -1,7 +1,7 @@
+import { TransactionItemType } from '@/api/transaction/types';
 import Typography, { AppTextStyle } from '@/atoms/Typography';
 import { Avatar } from '@/molecules';
 import { COLORS } from '@/theme/colors';
-import { TransactionItemType } from '@/types/transactionTypes';
 import { formatCurrency } from '@/utils/currencyFormatter';
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
@@ -38,7 +38,6 @@ const TransactionItem: React.FC<Props> = ({ item, handleSelected }) => {
                         icon={iconMap[item.type]}
                         iconStyles={{ backgroundColor: isDebit ? COLORS.oxblood : COLORS.green500 }}
                     />
-
                     <View>
                         <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMediumBold} >
                             {item.title}

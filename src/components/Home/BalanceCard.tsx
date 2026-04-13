@@ -1,24 +1,24 @@
-import Typography, { AppTextStyle } from '@/atoms/Typography'
+import { UserAccountType } from '@/api/user/types'
+import { Typography } from '@/atoms'
+import { AppTextStyle } from '@/atoms/Typography'
 import { AppContext } from '@/providers/AppContext'
 import { COLORS } from '@/theme/colors'
-import { UserAccountType } from '@/types/userType'
 import { copyToClipboard } from '@/utils/copyToClip'
 import { formatCurrency } from '@/utils/currencyFormatter'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useContext } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 
+
 type Props = {
   account: UserAccountType
 }
 
 const BalanceCard = ({ account }: Props) => {
-  const { balance, currency, accountNumber } = account
-
   const { hideBalance, setHideBalance } = useContext(AppContext)
 
   const handleCopy = () => {
-    copyToClipboard(accountNumber)
+    copyToClipboard(account?.accountNumber)
   }
 
   return (
@@ -44,7 +44,7 @@ const BalanceCard = ({ account }: Props) => {
           <>
             <View style={styles.currency}>
               <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.white}>
-                {currency}
+                {`${account.currency}`}
               </Typography>
             </View>
 
@@ -53,7 +53,7 @@ const BalanceCard = ({ account }: Props) => {
               textstyle={AppTextStyle.heading3}
               color={COLORS.ledgerBlue}
             >
-              {formatCurrency(balance)}
+              {formatCurrency(account?.balance)}
             </Typography>
           </>
         ) : (
@@ -63,7 +63,7 @@ const BalanceCard = ({ account }: Props) => {
               textstyle={AppTextStyle.heading3}
               color={COLORS.ledgerBlue}
             >
-              {accountNumber}
+              {`${account.accountNumber}`}
             </Typography>
 
             <Pressable onPress={handleCopy}>

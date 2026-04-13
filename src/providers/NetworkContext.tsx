@@ -18,20 +18,24 @@ export const NetworkProvider = ({ children }: { children: React.ReactNode }) => 
     const [networkConnectionType, setNetworkConnectionType] = useState('');
 
     useEffect(() => {
-        const unsubscribe = NetInfo.addEventListener(state => {
-            const connectionType = state.type;
-            const isConnected = state.isConnected;
-            const isNetworkReachable = state.isInternetReachable;
-            const isOnline = typeof isConnected === 'boolean' ? isConnected : true;
-            setIsConnected(isConnected);
-            setIsOnline(isOnline);
-            setNetworkConnectionType(connectionType);
-            setIsReachable(isNetworkReachable)
+        try {
+            const unsubscribe = NetInfo.addEventListener(state => {
+                const connectionType = state.type;
+                const isConnected = state.isConnected;
+                const isNetworkReachable = state.isInternetReachable;
+                const isOnline = typeof isConnected === 'boolean' ? isConnected : true;
+                setIsConnected(isConnected);
+                setIsOnline(isOnline);
+                setNetworkConnectionType(connectionType);
+                setIsReachable(isNetworkReachable)
 
-        });
+            });
 
 
-        return () => unsubscribe();
+            return () => unsubscribe();
+        } catch (error) {
+            console.log(error, 'this error')
+        }
     }, []);
 
     return (

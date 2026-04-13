@@ -32,6 +32,8 @@ import 'react-native-reanimated';
 //   );
 // }
 
+import { NetworkProvider } from '@/providers/NetworkContext';
+import { NetworkBanner } from '@/templates';
 import { COLORS } from '@/theme/colors';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -56,9 +58,12 @@ export default function TabLayout() {
     const iconSize = 28;
     return (
         <GestureHandlerRootView style={{ flex: 1, backgroundColor: COLORS.white }}>
-            <ThemeProvider value={DefaultTheme}>
-                <Stack screenOptions={{ headerShown: false }} />
-            </ThemeProvider>
+            <NetworkProvider>
+                <NetworkBanner />
+                <ThemeProvider value={DefaultTheme}>
+                    <Stack screenOptions={{ headerShown: false }} />
+                </ThemeProvider>
+            </NetworkProvider>
         </GestureHandlerRootView>
     );
 }
