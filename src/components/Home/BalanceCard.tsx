@@ -21,62 +21,65 @@ const BalanceCard = ({ account }: Props) => {
     copyToClipboard(account?.accountNumber)
   }
 
+  console.log({ account })
   return (
-    <View>
-      {/* Header */}
-      <View style={styles.container}>
-        <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium}>
-          {hideBalance ? 'Account Number' : 'Wallet Balance'}
-        </Typography>
+    account && (
+      <View>
+        {/* Header */}
+        <View style={styles.container}>
+          <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium}>
+            {hideBalance ? 'Account Number' : 'Wallet Balance'}
+          </Typography>
 
-        <Pressable onPress={() => setHideBalance?.(!hideBalance)}>
-          <Ionicons
-            name={hideBalance ? 'eye-off' : 'eye'}
-            size={24}
-            color={COLORS.ledgerBlue}
-          />
-        </Pressable>
-      </View>
-
-      {/* Content */}
-      <View style={styles.row}>
-        {!hideBalance ? (
-          <>
-            <View style={styles.currency}>
-              <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.white}>
-                {`${account.currency}`}
-              </Typography>
-            </View>
-
-            <Typography
-              style={styles.balanceText}
-              textstyle={AppTextStyle.heading3}
+          <Pressable onPress={() => setHideBalance?.(!hideBalance)}>
+            <Ionicons
+              name={hideBalance ? 'eye-off' : 'eye'}
+              size={24}
               color={COLORS.ledgerBlue}
-            >
-              {formatCurrency(account?.balance)}
-            </Typography>
-          </>
-        ) : (
-          <>
-            <Typography
-              style={styles.balanceText}
-              textstyle={AppTextStyle.heading3}
-              color={COLORS.ledgerBlue}
-            >
-              {`${account.accountNumber}`}
-            </Typography>
+            />
+          </Pressable>
+        </View>
 
-            <Pressable onPress={handleCopy}>
-              <Ionicons
-                name="copy-outline"
-                size={20}
+        {/* Content */}
+        <View style={styles.row}>
+          {!hideBalance ? (
+            <>
+              <View style={styles.currency}>
+                <Typography textstyle={AppTextStyle.bodyMedium} color={COLORS.white}>
+                  {`${account?.currency}`}
+                </Typography>
+              </View>
+
+              <Typography
+                style={styles.balanceText}
+                textstyle={AppTextStyle.heading3}
                 color={COLORS.ledgerBlue}
-              />
-            </Pressable>
-          </>
-        )}
+              >
+                {formatCurrency(account?.balance)}
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography
+                style={styles.balanceText}
+                textstyle={AppTextStyle.heading3}
+                color={COLORS.ledgerBlue}
+              >
+                {`${account?.accountNumber}`}
+              </Typography>
+
+              <Pressable onPress={handleCopy}>
+                <Ionicons
+                  name="copy-outline"
+                  size={20}
+                  color={COLORS.ledgerBlue}
+                />
+              </Pressable>
+            </>
+          )}
+        </View>
       </View>
-    </View>
+    )
   )
 }
 

@@ -15,7 +15,8 @@ const Screen = ({ children }: Props) => {
             flex: 1, 
             backgroundColor: COLORS.white, 
             paddingBottom: safeInsets.bottom,
-            paddingHorizontal:16 
+            paddingHorizontal:16 ,
+            paddingTop: safeInsets.top
         }}>
             {children}
         </View>

@@ -22,7 +22,7 @@ export default function RootLayout() {
     checkAuth()
   }, [])
 
-  // ⏳ Loading state
+  // Loading state
   if (isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -31,10 +31,10 @@ export default function RootLayout() {
     )
   }
 
-  // 🔀 Redirect based on auth
-  // if (!user) {
-  //   return <Redirect href="/(auth)/login" />
-  // }
+  // Redirect based on auth
+  if (!user) {
+    return <Redirect href="/(auth)/login" />
+  }
 
   return <Redirect href='/(tabs)/(home)/home'/>
 }

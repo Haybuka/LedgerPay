@@ -1,11 +1,11 @@
 
+import { TransactionItemType } from '@/api/transaction/types'
 import { Typography } from '@/atoms'
 import { TransactionItem, TransactionSearch, TransactionSheetUi, TransactionTabPill } from '@/components/transaction'
 import { useGetAllTransactions } from '@/hooks/useGetAllTransactions'
 import { BottomSheetUsage, Header } from '@/organisms'
 import { NetworkContext } from '@/providers/NetworkContext'
 import { Screen } from '@/templates'
-import { TransactionItemType } from '@/types/transactionTypes'
 import BottomSheet from '@gorhom/bottom-sheet'
 import React, { useContext, useRef, useState } from 'react'
 import { ActivityIndicator, Alert, FlatList, View } from 'react-native'
