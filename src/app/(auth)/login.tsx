@@ -1,11 +1,10 @@
-import { createUser } from '@/api/user/user'
 import { Button, Typography } from '@/atoms'
 import { AppTextStyle } from '@/atoms/Typography'
 import { FormInput } from '@/organisms'
+import { AuthContext } from '@/providers/AuthContext'
 import { Screen } from '@/templates'
-import { setStorageItem } from '@/utils'
 import { useRouter } from 'expo-router'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native'
 
@@ -16,6 +15,7 @@ export type LoginFormData = {
 
 const Login = () => {
 
+  const { login, loading } = useContext(AuthContext);
   const { control, handleSubmit, formState: { isValid, isSubmitting } } = useForm<LoginFormData>({
     defaultValues: {
       email: '',
@@ -28,14 +28,8 @@ const Login = () => {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      console.log('Login data:', data)
-
-      await createUser({
-        email: 'test@gmail.com',
-        password: '123456',
-      })
-
-      await setStorageItem("@User", JSON.stringify(data));
+      
+      const response = login(data.email, data.password);
       // 👉 navigate after login
       // router.replace('/(tabs)/(home)')
     } catch (error) {

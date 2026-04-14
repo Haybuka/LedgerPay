@@ -33,6 +33,7 @@ import 'react-native-reanimated';
 // }
 
 import { AppProvider } from '@/providers/AppContext';
+import { AuthProvider } from '@/providers/AuthContext';
 import { NetworkProvider } from '@/providers/NetworkContext';
 import { NetworkBanner } from '@/templates';
 import { COLORS } from '@/theme/colors';
@@ -50,17 +51,19 @@ export default function TabLayout() {
         'nunito-light': require('../assets/fonts/Nunito-Light.ttf'),
     });
 
- 
+
     return (
         <GestureHandlerRootView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <SafeAreaProvider>
                 <NetworkProvider>
-                    <AppProvider>
-                        <NetworkBanner />
-                        <ThemeProvider value={DefaultTheme}>
-                            <Stack screenOptions={{ headerShown: false }} />
-                        </ThemeProvider>
-                    </AppProvider>
+                    <AuthProvider>
+                        <AppProvider>
+                            <NetworkBanner />
+                            <ThemeProvider value={DefaultTheme}>
+                                <Stack screenOptions={{ headerShown: false }} />
+                            </ThemeProvider>
+                        </AppProvider>
+                    </AuthProvider>
                 </NetworkProvider>
             </SafeAreaProvider>
         </GestureHandlerRootView>

@@ -1,7 +1,6 @@
 import { getStorageItem, setStorageItem } from '@/utils';
 import React, { createContext, useEffect, useState } from 'react';
 
-
 type AppContextType = {
   hideBalance: boolean;
   biometricEnabled: boolean;
@@ -10,23 +9,24 @@ type AppContextType = {
   loading: boolean;
 };
 
-export const AppContext = createContext<AppContextType >({} as AppContextType);
+export const AppContext = createContext<AppContextType>({} as AppContextType);
 const BALANCE_STORAGE_KEY = '@hideBalance';
 const BIOMETRIC_STORAGE_KEY = '@biometricEnabled';
 
 
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
+
   const [hideBalance, setHideBalanceState] = useState(false);
   const [biometricEnabled, setBiometricEnabledState] = useState(false);
   const [loading, setLoading] = useState(true);
 
 
-  // 🔹 Load from storage on app start
+  // Load from storage on app start
   useEffect(() => {
     const loadSettings = async () => {
       try {
         const value = await getStorageItem(BALANCE_STORAGE_KEY);
-     
+
         if (value !== null) {
           setHideBalanceState(value === 'true');
         }
@@ -34,7 +34,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         if (biometricValue !== null) {
           setBiometricEnabledState(biometricValue === 'true');
         }
-        
+
       } catch (error) {
         console.log('Error loading hideBalance:', error);
       } finally {
@@ -45,11 +45,11 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     loadSettings();
   }, []);
 
-  // 🔹 Update state + persist
+  // Update state + persist
   const setHideBalance = async (value: boolean) => {
     try {
       setHideBalanceState(value);
-       await setStorageItem(BALANCE_STORAGE_KEY,  JSON.stringify(value));
+      await setStorageItem(BALANCE_STORAGE_KEY, JSON.stringify(value));
     } catch (error) {
       console.log('Error saving hideBalance:', error);
     }
@@ -58,7 +58,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const setBiometricEnabled = async (value: boolean) => {
     try {
       setBiometricEnabledState(value);
-       await setStorageItem(BIOMETRIC_STORAGE_KEY, JSON.stringify(value));
+      await setStorageItem(BIOMETRIC_STORAGE_KEY, JSON.stringify(value));
     } catch (error) {
       console.log('Error saving biometricEnabled:', error);
     }

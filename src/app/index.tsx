@@ -1,40 +1,31 @@
+import { Typography } from '@/atoms'
+import { AppTextStyle } from '@/atoms/Typography'
+import { AuthContext } from '@/providers/AuthContext'
+import { COLORS } from '@/theme/colors'
 import { Redirect } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { ActivityIndicator, View } from 'react-native'
 
 export default function RootLayout() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [user, setUser] = useState(null)
-  
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        // 🔑 Replace with real auth logic
-        const fakeUser = null // change to {} to simulate logged in
-        setUser(fakeUser)
-      } catch (e) {
-        console.log(e)
-      } finally {
-        setIsLoading(false)
-      }
-    }
 
-    checkAuth()
-  }, [])
+
+  const { isAuthenticated, user, loading } = useContext(AuthContext)
+
 
   // Loading state
-  if (isLoading) {
+  if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 20 }}>
+        <Typography textstyle={AppTextStyle.heading5} color={COLORS.ledgerBlue}>LEDGER PAY</Typography>
         <ActivityIndicator size="large" />
       </View>
     )
   }
 
   // Redirect based on auth
-  if (!user) {
-    return <Redirect href="/(auth)/login" />
-  }
+  // if (!user) {
+  //   return <Redirect href="/(auth)/login" />
+  // }
 
-  return <Redirect href='/(tabs)/(home)/home'/>
+  return <Redirect href='/(tabs)/(home)/home' />
 }
