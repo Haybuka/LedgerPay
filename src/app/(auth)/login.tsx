@@ -1,11 +1,13 @@
 import { createUser } from '@/api/user/user'
-import { Button } from '@/atoms'
-import { FormInput, Header } from '@/organisms'
+import { Button, Typography } from '@/atoms'
+import { AppTextStyle } from '@/atoms/Typography'
+import { FormInput } from '@/organisms'
 import { Screen } from '@/templates'
+import { setStorageItem } from '@/utils'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native'
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native'
 
 export type LoginFormData = {
   email: string
@@ -25,14 +27,20 @@ const Login = () => {
   const router = useRouter()
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log('Login data:', data)
+    try {
+      console.log('Login data:', data)
 
-    await createUser({
-      email: 'test@gmail.com',
-      password: '123456',
-    })
-    // 👉 navigate after login
-    // router.replace('/(tabs)/(home)')
+      await createUser({
+        email: 'test@gmail.com',
+        password: '123456',
+      })
+
+      await setStorageItem("@User", JSON.stringify(data));
+      // 👉 navigate after login
+      // router.replace('/(tabs)/(home)')
+    } catch (error) {
+
+    }
   }
 
   return (
@@ -41,18 +49,23 @@ const Login = () => {
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-        >
-          <Header title='Login' showIconLeft={false} />
 
-          <View style={styles.container}>
+        <View style={styles.container}>
+          <View style={{ gap: 10, marginBottom: 20 }}>
 
+            <Typography textstyle={AppTextStyle.heading7}>Welcome back</Typography>
+            <Typography textstyle={AppTextStyle.bodyMedium}>
+              Great to see you again! Your journey continues here.
+            </Typography>
+          </View>
+          <View>
+            <Typography textstyle={AppTextStyle.bodyMediumMedium} style={{ marginVertical: 10 }}>
+              Email
+            </Typography>
             <FormInput<LoginFormData>
               control={control}
               name="email"
-              label="Email"
+              label=""
               placeholder="Enter your email"
               rules={{
                 required: 'Email is required',
@@ -64,11 +77,15 @@ const Login = () => {
               keyboardType="email-address"
               autoCapitalize="none"
             />
-
+          </View>
+          <View>
+            <Typography textstyle={AppTextStyle.bodyMediumMedium} style={{ marginVertical: 10 }}>
+              Password
+            </Typography>
             <FormInput<LoginFormData>
               control={control}
               name="password"
-              label="Password"
+              label=""
               placeholder="Enter your password"
               rules={{
                 required: 'Password is required',
@@ -79,26 +96,28 @@ const Login = () => {
               }}
               secureTextEntry
             />
+          </View>
 
-            {/* {!isValid && (
+
+          {/* {!isValid && (
               <Typography color={COLORS.oxblood}>
                 Please fill in a valid email and password
               </Typography>
             )} */}
 
-            <View style={{ marginVertical: 26 }}>
-              <Button
-                label='Login'
-                icon=""
-                disabled={!isValid}
-                loading={isSubmitting}
-                onPress={handleSubmit(onSubmit)}
-              />
-            </View>
-          </View>
+
+        </View>
 
 
-        </ScrollView>
+        <Button
+          label='Log in'
+          icon=""
+          disabled={!isValid}
+          loading={isSubmitting}
+          onPress={handleSubmit(onSubmit)}
+        />
+
+
       </KeyboardAvoidingView>
     </Screen>
   )
@@ -107,5 +126,5 @@ const Login = () => {
 export default Login
 
 const styles = StyleSheet.create({
-  container: { marginVertical: 30, flex: 1, justifyContent: 'center', gap: 20 }
+  container: { marginVertical: 30, flex: 1, gap: 20 }
 })

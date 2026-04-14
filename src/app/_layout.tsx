@@ -32,16 +32,17 @@ import 'react-native-reanimated';
 //   );
 // }
 
+import { AppProvider } from '@/providers/AppContext';
 import { NetworkProvider } from '@/providers/NetworkContext';
 import { NetworkBanner } from '@/templates';
 import { COLORS } from '@/theme/colors';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import React from 'react';
-import { useWindowDimensions } from "react-native";
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
-    const { width: screenWidth, height } = useWindowDimensions();
+
     const [loaded] = useFonts({
         nunito: require('../assets/fonts/Nunito-Regular.ttf'),
         'nunito-Bold': require('../assets/fonts/Nunito-Bold.ttf'),
@@ -49,21 +50,19 @@ export default function TabLayout() {
         'nunito-light': require('../assets/fonts/Nunito-Light.ttf'),
     });
 
-
-
-    // Width of the tab bar itself
-    const tabBarWidth = 150; // adjust based on number of tabs + spacing
-    const numberOfTabs = 3;
-    const tabWidth = tabBarWidth / numberOfTabs;
-    const iconSize = 28;
+ 
     return (
         <GestureHandlerRootView style={{ flex: 1, backgroundColor: COLORS.white }}>
-            <NetworkProvider>
-                <NetworkBanner />
-                <ThemeProvider value={DefaultTheme}>
-                    <Stack screenOptions={{ headerShown: false }} />
-                </ThemeProvider>
-            </NetworkProvider>
+            <SafeAreaProvider>
+                <NetworkProvider>
+                    <AppProvider>
+                        <NetworkBanner />
+                        <ThemeProvider value={DefaultTheme}>
+                            <Stack screenOptions={{ headerShown: false }} />
+                        </ThemeProvider>
+                    </AppProvider>
+                </NetworkProvider>
+            </SafeAreaProvider>
         </GestureHandlerRootView>
     );
 }

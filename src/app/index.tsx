@@ -5,7 +5,7 @@ import { ActivityIndicator, View } from 'react-native'
 export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(true)
   const [user, setUser] = useState(null)
-
+  
   useEffect(() => {
     const checkAuth = async () => {
       try {
