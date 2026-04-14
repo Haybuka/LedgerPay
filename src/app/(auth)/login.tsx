@@ -15,7 +15,7 @@ export type LoginFormData = {
 
 const Login = () => {
 
-  const { login, loading } = useContext(AuthContext);
+  const { login, loading, isAuthenticated } = useContext(AuthContext);
   const { control, handleSubmit, formState: { isValid, isSubmitting } } = useForm<LoginFormData>({
     defaultValues: {
       email: '',
@@ -26,12 +26,15 @@ const Login = () => {
 
   const router = useRouter()
 
+  console.log({ isAuthenticated })
   const onSubmit = async (data: LoginFormData) => {
     try {
-      
+
       const response = login(data.email, data.password);
       // 👉 navigate after login
-      // router.replace('/(tabs)/(home)')
+      setTimeout(() => {
+        router.replace('/(tabs)/(home)/home')
+      }, 2000);
     } catch (error) {
 
     }
@@ -107,7 +110,7 @@ const Login = () => {
           label='Log in'
           icon=""
           disabled={!isValid}
-          loading={isSubmitting}
+          loading={isSubmitting || loading}
           onPress={handleSubmit(onSubmit)}
         />
 

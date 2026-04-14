@@ -4,7 +4,7 @@ import { getUser } from "@/api/user/user";
 import { useCallback, useEffect, useState } from "react";
 
 export const useGetUser = () => {
-  const [user, setUser] = useState<UserProfileType>({} as UserProfileType);
+  const [user, setUser] = useState<UserProfileType[]>([] as UserProfileType[]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 

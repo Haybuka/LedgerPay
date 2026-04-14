@@ -287,83 +287,23 @@
     "phone": "+234 803 123 4567",
     "account": {
       "accountNumber": "983572462",
-      "balance": 120000,
+      "balance": 130000,
       "currency": "$"
     }
   },
   "user": [
     {
-      "id": "1",
-      "firstName": "Chukwu",
-      "lastName": "Paschal",
-      "avatar": "https://randomuser.me/api/portraits/men/75.jpg",
-      "email": "chukwu@example.com",
+      "email": "paschal@gmail.com",
+      "password": "password",
+      "firstName": "idris",
+      "lastName": "elba",
       "phone": "+234 803 123 4567",
       "account": {
         "accountNumber": "983572462",
-        "balance": 120000,
+        "balance": 200000,
         "currency": "$"
-      }
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "123456",
-      "id": "5DcgrdxdOmw"
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "123456",
-      "id": "7zcamJgOoXI"
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "123456",
-      "id": "4La9HdQHUDI"
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "123456",
-      "id": "3jV2-b4k9iE"
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "123456",
-      "id": "5Jarf01tGn8"
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "123456",
-      "id": "DIot_RgFNSg"
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "123456",
-      "id": "ePkGGKhRFWY"
-    },
-    {
-      "email": "test@gmail.com",
-      "password": "123456",
-      "id": "hSxgZP-pMik"
-    },
-    {
-      "email": "p@p.com",
-      "password": "1234534",
-      "id": "sCxg7AY_Bhw"
-    },
-    {
-      "email": "p@p.com",
-      "password": "1234534",
-      "id": "7NqEb32hq4A"
-    },
-    {
-      "email": "p@p.com",
-      "password": "1234534",
-      "id": "CzpqERdwDlE"
-    },
-    {
-      "email": "p@p.com",
-      "password": "1234534",
-      "id": "H4ozxzh1qGs"
+      },
+      "id": "fkCFGN0nocY"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

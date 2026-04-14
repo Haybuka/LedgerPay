@@ -2,7 +2,7 @@ import { BASE_URL } from "..";
 
 export const getUser = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/userProfile`);
+        const response = await fetch(`${BASE_URL}/user`);
         if (!response.ok) {
             throw new Error('Failed to fetch user profile');
         }

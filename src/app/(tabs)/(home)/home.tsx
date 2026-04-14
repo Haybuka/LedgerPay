@@ -10,6 +10,7 @@ import { useGetUser } from "@/hooks/useGetUser";
 import { AppContext } from "@/providers/AppContext";
 import { Screen } from "@/templates";
 import { COLORS } from "@/theme/colors";
+import { getStorageItem } from "@/utils";
 import { useNavigation, useRouter } from "expo-router";
 import React, { useContext } from "react";
 import { FlatList, Pressable, StyleSheet, Text, useWindowDimensions, View } from "react-native";
@@ -33,6 +34,16 @@ export default function Home() {
   const { user, loading: loadingUser = true, refreshing: isRefreshingUser = true, refetch: refetchUser } = useGetUser();
 
   const isFetching = isRefreshingUser || isRefreshingTransaction;
+
+  const getUser = async () => {
+    const storedUser = await getStorageItem('@auth_user')
+
+    if (storedUser) {
+
+      console.log(JSON.parse(storedUser),'stored');
+    }
+  }
+
 
   if (biometricEnabled && isLoading) {
     return (
@@ -91,9 +102,9 @@ export default function Home() {
               </>
             ) : (
               <>
-                <Greetings firstName={user?.firstName} lastName={user?.lastName} />
+                <Greetings firstName={user[0]?.firstName} lastName={user[0]?.lastName} />
                 <View style={styles.banner}>
-                  <BalanceCard account={user.account} />
+                  <BalanceCard account={user[0].account} />
                   <CtaSection />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>

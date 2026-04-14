@@ -14,6 +14,7 @@ const Greetings = ({ firstName = 'Hi', lastName = 'there' }: Prop) => {
             <AvatarBase >
                 <Typography
                     color={COLORS.white} textstyle={AppTextStyle.heading8}
+                    style={{ textTransform: 'capitalize' }}
                 >
                     {firstName?.charAt(0)?.toUpperCase()}
                     {lastName?.charAt(0)?.toUpperCase()}</Typography>
@@ -21,7 +22,7 @@ const Greetings = ({ firstName = 'Hi', lastName = 'there' }: Prop) => {
 
             <View>
                 <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium}>Good evening, </Typography>
-                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading8}>{firstName} {lastName}</Typography>
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading8} style={{ textTransform: 'capitalize' }}>{firstName} {lastName}</Typography>
 
             </View>
 

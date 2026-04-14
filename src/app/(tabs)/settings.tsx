@@ -2,12 +2,15 @@
 import { AvatarBase, Button } from '@/atoms'
 import Typography, { AppTextStyle } from '@/atoms/Typography'
 import SettingsMenuItem from '@/components/Settings/SettingsMenuItem'
+import { useGetUser } from '@/hooks/useGetUser'
 import { SwitchOption } from '@/molecules'
 import { Header } from '@/organisms'
 import { AppContext } from '@/providers/AppContext'
+import { AuthContext } from '@/providers/AuthContext'
 import { Screen } from '@/templates'
 import { COLORS } from '@/theme/colors'
 import { Ionicons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
 import React, { useContext, useState } from 'react'
 import { Alert, SectionList, StyleSheet, View } from 'react-native'
 
@@ -15,7 +18,10 @@ const Settings = () => {
 
   const [pushNotification, setPushNotification] = useState(false);
   const context = useContext(AppContext);
+  const { logout, loading } = useContext(AuthContext)
+  const { user, loading: loadingUser = true, refreshing: isRefreshingUser = true, refetch: refetchUser } = useGetUser();
 
+  const router = useRouter();
   const handleLogout = () => {
     Alert.alert(
       'Log out',
@@ -31,6 +37,10 @@ const Settings = () => {
           onPress: () => {
 
             console.log('User logged out');
+            logout()
+            setTimeout(() => {
+              router.replace("/login");
+            }, 2000)
           },
         },
       ],
@@ -152,19 +162,20 @@ const Settings = () => {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={() => {
           return (
-            <View style={{alignItems : 'center'}}>
+            <View style={{ alignItems: 'center' }}>
               <AvatarBase size={150} background={COLORS.grey100}>
                 <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.heading3}>PC</Typography>
               </AvatarBase>
               <View style={{ marginVertical: 14 }}>
-                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLargeBold} textAlign='center'>
-                  Chukwu Paschal
+                <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyLargeBold} textAlign='center' style={{ textTransform: 'capitalize' }}>
+                  {user[0]?.lastName} {user[0]?.firstName}
                 </Typography>
                 <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center' style={{ marginVertical: 4 }}>
-                  Chukwu.Paschal@interswitch.com
+
+                  {user[0]?.email}
                 </Typography>
                 <Typography color={COLORS.ledgerBlue} textstyle={AppTextStyle.bodyMedium} textAlign='center'>
-                  081 664 49354
+                   {user[0]?.phone}
                 </Typography>
               </View>
             </View>
@@ -177,6 +188,7 @@ const Settings = () => {
                 label='Log out'
                 bgColor={COLORS.oxblood}
                 onPress={handleLogout}
+                loading={loading}
                 icon={<Ionicons name='log-out' size={24} color={COLORS.white} />}
               />
             </View>

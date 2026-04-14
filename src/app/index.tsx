@@ -2,15 +2,20 @@ import { Typography } from '@/atoms'
 import { AppTextStyle } from '@/atoms/Typography'
 import { AuthContext } from '@/providers/AuthContext'
 import { COLORS } from '@/theme/colors'
-import { Redirect } from 'expo-router'
-import { useContext } from 'react'
+import { Redirect, useRouter } from 'expo-router'
+import { useContext, useEffect } from 'react'
 import { ActivityIndicator, View } from 'react-native'
 
 export default function RootLayout() {
+  const router = useRouter();
 
+  const { isAuthenticated, user, loading, logout } = useContext(AuthContext)
 
-  const { isAuthenticated, user, loading } = useContext(AuthContext)
-
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.replace("/login");
+    }
+  }, [isAuthenticated]);
 
   // Loading state
   if (loading) {
@@ -22,10 +27,14 @@ export default function RootLayout() {
     )
   }
 
-  // Redirect based on auth
-  // if (!user) {
-  //   return <Redirect href="/(auth)/login" />
-  // }
+  console.log({isAuthenticated},'aurthentixated')
 
-  return <Redirect href='/(tabs)/(home)/home' />
+  // Redirect based on auth
+  // Not logged in → auth flow
+  if (!isAuthenticated || !user) {
+    return <Redirect href="/(auth)/login" />
+  }
+
+  // Logged in → main app
+  return <Redirect href="/(tabs)/(home)/home" />
 }
