@@ -102,9 +102,9 @@ export default function Home() {
               </>
             ) : (
               <>
-                <Greetings firstName={user[0]?.firstName} lastName={user[0]?.lastName} />
+                <Greetings firstName={user[user?.length - 1]?.firstName} lastName={user[user?.length - 1]?.lastName} />
                 <View style={styles.banner}>
-                  <BalanceCard account={user[0].account} />
+                  <BalanceCard account={user[user.length - 1]?.account} />
                   <CtaSection />
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>

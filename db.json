@@ -294,7 +294,7 @@
   "user": [
     {
       "email": "paschal@gmail.com",
-      "password": "password",
+      "password": "paschal",
       "firstName": "idris",
       "lastName": "elba",
       "phone": "+234 803 123 4567",
@@ -303,7 +303,7 @@
         "balance": 200000,
         "currency": "$"
       },
-      "id": "fkCFGN0nocY"
+      "id": "2H62IR7QgfE"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

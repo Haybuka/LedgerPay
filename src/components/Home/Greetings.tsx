@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 8,
-        marginTop: 40,
+   
     },
     avatar: {
         height: 40,
