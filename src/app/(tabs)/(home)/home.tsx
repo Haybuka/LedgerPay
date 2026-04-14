@@ -40,7 +40,7 @@ export default function Home() {
 
     if (storedUser) {
 
-      console.log(JSON.parse(storedUser),'stored');
+      console.log(JSON.parse(storedUser), 'stored');
     }
   }
 
@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
   banner: {
 
     marginVertical: 20,
-
   },
 
 });
