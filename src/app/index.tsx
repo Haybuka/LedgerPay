@@ -31,9 +31,9 @@ export default function RootLayout() {
 
   // Redirect based on auth
   // Not logged in → auth flow
-  if (!isAuthenticated || !user) {
-    return <Redirect href="/(auth)/login" />
-  }
+  // if (!isAuthenticated || !user) {
+  //   return <Redirect href="/(auth)/login" />
+  // }
 
   // Logged in → main app
   return <Redirect href="/(tabs)/(home)/home" />

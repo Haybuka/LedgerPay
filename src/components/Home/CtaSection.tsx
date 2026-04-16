@@ -14,6 +14,10 @@ const CtaSection = () => {
         router.push('/beneficiary');
     }
 
+    const handleCalculator = () => {
+
+        router.push('/Calculator');
+    }
 
     return (
         <View style={{ flexDirection: 'row', gap: 16, marginVertical: 20 }}>
@@ -37,6 +41,7 @@ const CtaSection = () => {
             />
             <CtaButton
                 label="More"
+                onPress={handleCalculator}
                 bgColor="#9E9E9E"
                 icon={<Ionicons size={24} color={COLORS.white} name="ellipsis-horizontal" />}
             />

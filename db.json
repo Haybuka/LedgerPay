@@ -304,6 +304,58 @@
         "currency": "$"
       },
       "id": "2H62IR7QgfE"
+    },
+    {
+      "email": "p@p.com",
+      "password": "paschal1234",
+      "firstName": "idris",
+      "lastName": "elba",
+      "phone": "+234 803 123 4567",
+      "account": {
+        "accountNumber": "983572462",
+        "balance": 200000,
+        "currency": "$"
+      },
+      "id": "B98KCxbL-bs"
+    },
+    {
+      "email": "Check@check.com",
+      "password": "plantain",
+      "firstName": "idris",
+      "lastName": "elba",
+      "phone": "+234 803 123 4567",
+      "account": {
+        "accountNumber": "983572462",
+        "balance": 200000,
+        "currency": "$"
+      },
+      "id": "1wPPleUn_yY"
+    },
+    {
+      "email": "p@P.com",
+      "password": "oejeef",
+      "firstName": "idris",
+      "lastName": "elba",
+      "phone": "+234 803 123 4567",
+      "account": {
+        "accountNumber": "983572462",
+        "balance": 200000,
+        "currency": "$"
+      },
+      "id": "pQQWs8USvx8"
+    },
+    {
+      "email": "p@P.com",
+      "password": "oejeef",
+      "firstName": "idris",
+      "lastName": "elba",
+      "phone": "+234 803 123 4567",
+      "account": {
+        "accountNumber": "983572462",
+        "balance": 200000,
+        "currency": "$"
+      },
+      "id": "S-mCJsk9TK0"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
