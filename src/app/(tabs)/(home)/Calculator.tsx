@@ -31,10 +31,18 @@ const KEYS = [
     '0', '.', '00', '='
 ];
 
+// 1707 - entry point, modal, close / back button
+// 2166 - calculator
+// 1791 - lift amount state up to parent
+// 1707 - if open, calculator should persist value
+// 1434 - connect physical with screen.
 
 const operators = ['+', '-', 'x', '/'];
 
-const CalculatorScreen = () => {
+type Prop = {
+  handleTransactionUpdate : (val : string) => void;
+}
+const CalculatorScreen = ({handleTransactionUpdate}:Prop) => {
 
     const [amount, setAmount] = useState('');
     const [currentInput, setCurrentInput] = useState('')
@@ -107,6 +115,10 @@ const CalculatorScreen = () => {
         setCurrentInput(prev => prev + key);
     };
 
+    const handleUseTransaction = () => {
+        if(amount === '0') return;
+        handleTransactionUpdate(amount)
+    }
     return (
         <Screen >
 
@@ -124,13 +136,13 @@ const CalculatorScreen = () => {
                 </Typography>
             </View>
             <View>
-                <Pressable style={styles.button} >
+                <Pressable style={styles.button} onPress={handleUseTransaction}>
                     <Typography
                         textstyle={AppTextStyle.heading8}
                         color={COLORS.white}
                         style={{ textTransform: 'uppercase' }}
                     >
-                        Use as Transaction
+                        Use Result
                     </Typography>
                 </Pressable>
             </View>
