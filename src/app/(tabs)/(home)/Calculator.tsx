@@ -37,12 +37,12 @@ const KEYS = [
 // 1707 - if open, calculator should persist value
 // 1434 - connect physical with screen.
 
-const operators = ['+', '-', 'x', '/'];
+const operators = ['+', '-', '*', '/'];
 
 type Prop = {
-  handleTransactionUpdate : (val : string) => void;
+    handleTransactionUpdate: (val: string) => void;
 }
-const CalculatorScreen = ({handleTransactionUpdate}:Prop) => {
+const CalculatorScreen = ({ handleTransactionUpdate }: Prop) => {
 
     const [amount, setAmount] = useState('');
     const [currentInput, setCurrentInput] = useState('')
@@ -51,13 +51,20 @@ const CalculatorScreen = ({handleTransactionUpdate}:Prop) => {
     const handleKeyPress = (key: string) => {
 
         console.log({ amount })
-        if (justEvaluated && !operators.includes(key)) {
-            setAmount(key);
-            setCurrentInput(key);
-            setJustEvaluated(false);
-            return;
-        }
 
+        if (justEvaluated) {
+            if (operators.includes(key)) {
+                setCurrentInput(prev => prev + key);
+                setAmount(prev => prev + key);
+                setJustEvaluated(false);
+                return;
+            } else {
+                setAmount(key);
+                setCurrentInput(key);
+                setJustEvaluated(false);
+                return;
+            }
+        }
         if (operators.includes(key)) {
             const lastChar = amount.slice(-1);
             if (operators.includes(lastChar)) return;
@@ -67,6 +74,9 @@ const CalculatorScreen = ({handleTransactionUpdate}:Prop) => {
             return;
         }
 
+        if (!amount || operators.includes(amount.slice(-1))) {
+            return;
+        }
 
         if (key === 'c') {
             setAmount('');
@@ -116,48 +126,49 @@ const CalculatorScreen = ({handleTransactionUpdate}:Prop) => {
     };
 
     const handleUseTransaction = () => {
-        if(amount === '0') return;
+       if (!amount || amount === 'Error' || isNaN(Number(amount))) return;
         handleTransactionUpdate(amount)
     }
     return (
         <Screen >
 
-            <View>
-                <Typography style={styles.liveView}>
+            <View style={{ height: 480, paddingVertical: 10, }}>
+                <View>
+                    <Typography style={styles.liveView}>
 
-                    {currentInput}
-                </Typography>
-            </View>
-            <View style={styles.amountContainer}>
-                {/* <Typography style={styles.currency}>$</Typography> */}
-                <Typography style={styles.amount}>
-
-                    {formatAmountUi(amount)}
-                </Typography>
-            </View>
-            <View>
-                <Pressable style={styles.button} onPress={handleUseTransaction}>
-                    <Typography
-                        textstyle={AppTextStyle.heading8}
-                        color={COLORS.white}
-                        style={{ textTransform: 'uppercase' }}
-                    >
-                        Use Result
+                        {currentInput}
                     </Typography>
-                </Pressable>
-            </View>
-            <View style={styles.keypad}>
-                {KEYS.map((key) => (
-                    <Pressable
-                        key={key}
-                        onPress={() => handleKeyPress(key)}
-                        style={styles.key}
-                    >
-                        <Typography style={styles.keyText}>
-                            {key}
+                </View>
+                <View style={styles.amountContainer}>
+                    <Typography style={styles.amount}>
+
+                        {formatAmountUi(amount)}
+                    </Typography>
+                </View>
+                <View>
+                    <Pressable style={styles.button} onPress={handleUseTransaction}>
+                        <Typography
+                            textstyle={AppTextStyle.heading8}
+                            color={COLORS.white}
+                            style={{ textTransform: 'uppercase' }}
+                        >
+                            Use Result
                         </Typography>
                     </Pressable>
-                ))}
+                </View>
+                <View style={styles.keypad}>
+                    {KEYS.map((key) => (
+                        <Pressable
+                            key={key}
+                            onPress={() => handleKeyPress(key)}
+                            style={styles.key}
+                        >
+                            <Typography style={styles.keyText}>
+                                {key}
+                            </Typography>
+                        </Pressable>
+                    ))}
+                </View>
             </View>
         </Screen>
 
@@ -173,10 +184,6 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'space-between',
     },
-    recipient: {
-        textAlign: 'center',
-        opacity: 0
-    },
     amountContainer: {
         alignItems: 'center',
         flexDirection: 'row',
@@ -188,43 +195,46 @@ const styles = StyleSheet.create({
         color: COLORS.grey50,
     },
     amount: {
-        fontSize: 42,
+        fontSize: 32,
         fontWeight: 'bold',
         textAlign: 'right'
     },
     liveView: {
-        fontSize: 32,
+        fontSize: 22,
         textAlign: 'right',
-        color : COLORS.grey50
+        color: COLORS.grey50
     },
     button: {
         width: '100%',
         backgroundColor: COLORS.ledgerBlue,
         borderRadius: 10,
         alignItems: 'center',
-        paddingVertical: 14
+        paddingVertical: 12
     },
     keypad: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
+
     },
     key: {
         width: '25%',
-        paddingVertical: 20,
-        marginVertical: 10,
+        paddingVertical: 14,
+        marginVertical: 4,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+
     },
     keyText: {
         fontSize: 24,
         fontWeight: '600',
+
     },
     btn: {
         alignItems: 'center',
         gap: 10,
         paddingHorizontal: 12,
-        paddingVertical: 14,
+        paddingVertical: 12,
         borderRadius: 20,
     }
 });

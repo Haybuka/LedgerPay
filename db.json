@@ -369,6 +369,19 @@
         "currency": "$"
       },
       "id": "Cc7-o-i3fBs"
+    },
+    {
+      "email": "ih@hi.com",
+      "password": "ooooooo",
+      "firstName": "idris",
+      "lastName": "elba",
+      "phone": "+234 803 123 4567",
+      "account": {
+        "accountNumber": "983572462",
+        "balance": 200000,
+        "currency": "$"
+      },
+      "id": "a9aJNQlzcak"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
