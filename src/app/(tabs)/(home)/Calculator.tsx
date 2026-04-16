@@ -7,64 +7,78 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 
 export const formatCurrency = (amount: number, currency = 'NGN') => {
-  return new Intl.NumberFormat('en-NG', {
-    style: 'decimal',
-    currency,
-  }).format(amount);
+    return new Intl.NumberFormat('en-NG', {
+        style: 'decimal',
+        currency,
+    }).format(amount);
 };
 
-    export const formatAmountUi = (value: string) => {
-        if (!value) return '0'
+export const formatAmountUi = (value: string) => {
+    if (!value) return '0'
 
-        const number = Number(value)
+    const number = Number(value)
 
-        if (isNaN(number)) return value
+    if (isNaN(number)) return value
 
-        return number.toLocaleString('en-NG')
-    }
+    return number.toLocaleString('en-NG')
+}
 
 const KEYS = [
     'c', '%', '/', '⌫',
-    '7', '8', '9', 'x',
+    '7', '8', '9', '*',
     '4', '5', '6', '-',
     '1', '2', '3', '+',
     '0', '.', '00', '='
 ];
+
 
 const operators = ['+', '-', 'x', '/'];
 
 const CalculatorScreen = () => {
 
     const [amount, setAmount] = useState('');
+    const [currentInput, setCurrentInput] = useState('')
+    const [justEvaluated, setJustEvaluated] = useState(false);
 
     const handleKeyPress = (key: string) => {
 
         console.log({ amount })
+        if (justEvaluated && !operators.includes(key)) {
+            setAmount(key);
+            setCurrentInput(key);
+            setJustEvaluated(false);
+            return;
+        }
+
         if (operators.includes(key)) {
             const lastChar = amount.slice(-1);
             if (operators.includes(lastChar)) return;
         }
 
-        if (( amount === undefined)) {
+        if ((amount === undefined)) {
             return;
         }
 
 
         if (key === 'c') {
             setAmount('');
+            setCurrentInput('');
             return;
         }
 
         if (key === '⌫') {
             setAmount(prev => prev.slice(0, -1));
+            setCurrentInput(prev => prev.slice(0, -1));
             return;
         }
 
         if (key === '=') {
             try {
                 const expression = amount.replace(/x/g, '*');
+                setCurrentInput(expression + ' =');
                 const result = eval(expression); // simple eval for now
                 setAmount(String(result));
+                setJustEvaluated(true);
             } catch (e) {
                 setAmount('Error');
             }
@@ -90,13 +104,20 @@ const CalculatorScreen = () => {
         if (amount.length >= MAX_LENGTH) return;
 
         setAmount(prev => prev + key);
+        setCurrentInput(prev => prev + key);
     };
 
     return (
         <Screen >
 
+            <View>
+                <Typography style={styles.liveView}>
+
+                    {currentInput}
+                </Typography>
+            </View>
             <View style={styles.amountContainer}>
-                <Typography style={styles.currency}>$</Typography>
+                {/* <Typography style={styles.currency}>$</Typography> */}
                 <Typography style={styles.amount}>
 
                     {formatAmountUi(amount)}
@@ -147,7 +168,7 @@ const styles = StyleSheet.create({
     amountContainer: {
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         gap: 6,
     },
     currency: {
@@ -157,6 +178,12 @@ const styles = StyleSheet.create({
     amount: {
         fontSize: 42,
         fontWeight: 'bold',
+        textAlign: 'right'
+    },
+    liveView: {
+        fontSize: 32,
+        textAlign: 'right',
+        color : COLORS.grey50
     },
     button: {
         width: '100%',
